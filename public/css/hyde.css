@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Newbility523 
+qian256
+/
+qian256.github.io
+Public
+forked from poole/hyde
+Code
+Issues
+2
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+qian256.github.io/public/css/hyde.css
+@qian256
+qian256 first chinese blog!
+Latest commit e058ef9 on Feb 13, 2017
+ History
+ 2 contributors
+@mdo@qian256
+295 lines (262 sloc)  4.93 KB
+   
 /*
  *  __                  __
  * /\ \                /\ \
@@ -34,18 +65,21 @@
 html {
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
 }
-@media (min-width: 48em) {
+@media (min-width: 48rem) {
   html {
     font-size: 16px;
   }
 }
-@media (min-width: 58em) {
+@media (min-width: 64rem) {
   html {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
-
-
+@media (min-width: 80rem) {
+  html {
+    font-size: 16px;
+  }
+}
 /*
  * Sidebar
  *
@@ -55,17 +89,37 @@ html {
 
 .sidebar {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem 2rem 2rem 2rem;
   color: rgba(255,255,255,.5);
   background-color: #202020;
 }
-@media (min-width: 48em) {
+@media (min-width: 48rem) {
   .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 18rem;
+    width: 24rem;
+    text-align: right;
+  }
+}
+@media (min-width: 64rem) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 24rem;
+    text-align: right;
+  }
+}
+@media (min-width: 96rem) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 44rem;
     text-align: right;
   }
 }
@@ -81,16 +135,16 @@ html {
   margin-top: 0;
   font-family: 'Average', serif;
   font-weight: bold;
-  font-size: 3.25rem
+  font-size: 3.25rem;
 }
 
 /* Sidebar nav */
 .sidebar-nav {
-  margin-bottom: 1rem;
+  padding-left: 0;
+  list-style: none;
 }
 .sidebar-nav-item {
   display: block;
-  line-height: 1.75;
 }
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
@@ -106,7 +160,7 @@ a.sidebar-nav-item:focus {
  * contents to the bottom of the sidebar in tablets and up.
  */
 
-@media (min-width: 48em) {
+@media (min-width: 48rem) {
   .sidebar-sticky {
     position: absolute;
     right:  1rem;
@@ -124,20 +178,26 @@ a.sidebar-nav-item:focus {
 
 .content {
   padding-top:    4rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
 }
 
-@media (min-width: 48em) {
+@media (min-width: 48rem) {
   .content {
-    max-width: 38rem;
-    margin-left: 20rem;
+    max-width: 44rem;
+    margin-left: 26rem;
     margin-right: 2rem;
   }
 }
 
-@media (min-width: 64em) {
+@media (min-width: 64rem) {
   .content {
-    margin-left: 22rem;
+    margin-left: 26rem;
+    margin-right: 4rem;
+  }
+}
+@media (min-width: 96rem) {
+  .content {
+    margin-left: 46rem;
     margin-right: 4rem;
   }
 }
@@ -149,21 +209,27 @@ a.sidebar-nav-item:focus {
  * Flip the orientation of the page by placing the `.sidebar` on the right.
  */
 
-@media (min-width: 48em) {
+@media (min-width: 48rem) {
   .layout-reverse .sidebar {
     left: auto;
     right: 0;
   }
   .layout-reverse .content {
     margin-left: 2rem;
-    margin-right: 20rem;
+    margin-right: 26rem;
   }
 }
 
-@media (min-width: 64em) {
+@media (min-width: 64rem) {
   .layout-reverse .content {
     margin-left: 4rem;
-    margin-right: 22rem;
+    margin-right: 26rem;
+  }
+}
+@media (min-width: 96rem) {
+  .layout-reverse .content {
+    margin-left: 4rem;
+    margin-right: 46rem;
   }
 }
 
@@ -247,5 +313,14 @@ a.sidebar-nav-item:focus {
 }
 .theme-base-0f .content a,
 .theme-base-0f .related-posts li a:hover {
+  color: #8f5536;
+}
+
+/* Brown */
+.theme-long-qian .sidebar {
+  background-color: #8f5536;
+}
+.theme-long-qian .content a,
+.theme-long-qian .related-posts li a:hover {
   color: #8f5536;
 }

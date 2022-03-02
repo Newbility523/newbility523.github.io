@@ -1,16 +1,16 @@
 # Dependencies
 markdown:         kramdown
-highlighter:      Rouge
+highlighter:      rouge
 
 # Permalinks
 permalink:        pretty
 
 # Setup
-title:            Zhuo fu
+title:            ZhuoFu
 tagline:          ''
 description:      '此后如竟没有炬火，我便是唯一的光'
 url:              newbility523.github.io
-baseurl:          ''
+# baseurl:          ''
 
 author:
   name:           'HuangZhuofu'
@@ -23,6 +23,12 @@ version:          2.1.0
 
 github:
   repo:           https://github.com/poole/hyde
+
+# Markdown Processors
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
 
 plugins:
   - jekyll-paginate

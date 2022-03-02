@@ -6,59 +6,63 @@ excerpt: I am happy to join with you today in what will go down in history as th
 
 参考
 https://longqian.me/
+
 ```c#
 public PlayableDirector director;
-    public Dictionary<String, PlayableBinding> bindingDict = new Dictionary<String, PlayableBinding>(); //轨道映射
+public Dictionary<String, PlayableBinding> bindingDict = new Dictionary<String, PlayableBinding>(); //轨道映射
 
-    public Action onStopAction = null;
+public Action onStopAction = null;
 
-    bool stop = true;
+bool stop = true;
 
-    void OnEnable()
+void OnEnable()
+{
+    stop = true;
+    if (!director)
     {
-        stop = true;
-        if (!director)
+        var gameObject = new Object()
+        var directors = gameObject.GetComponentsInChildren();
+        if (directors.Length < 0)
         {
-            var directors = gameObject.GetComponentsInChildren<PlayableDirector>();
-            if (directors.Length < 0)
+            if (onStopAction != null)
             {
-                if (onStopAction != null)
-                {
-                    var tmp = onStopAction;
-                    onStopAction = null;
-                    tmp.Invoke();
-                }
-
-                return;
+                var tmp = onStopAction;
+                onStopAction = null;
+                tmp.Invoke();
             }
 
-            director = directors[0];
-            foreach (var bind in director.playableAsset.outputs)
+            return;
+        }
+
+        director = directors[0];
+        foreach (var bind in director.playableAsset.outputs)
+        {
+            if (!bindingDict.ContainsKey(bind.streamName))
             {
-                if (!bindingDict.ContainsKey(bind.streamName))
-                {
-                    bindingDict.Add(bind.streamName, bind);
-                }
+                bindingDict.Add(bind.streamName, bind);
             }
         }
     }
+}
 
-    //轨道绑定
-    public void BindTrackGameObject(String trackName, GameObject go)
+//轨道绑定
+public void BindTrackGameObject(String trackName, GameObject go)
+{
+    PlayableBinding pb;
+    if (bindingDict.TryGetValue(trackName, out pb))
     {
-        PlayableBinding pb;
-        if (bindingDict.TryGetValue(trackName, out pb))
-        {
-            director.SetGenericBinding(pb.sourceObject, go);
-        }
+        director.SetGenericBinding(pb.sourceObject, go);
     }
+}
 
 
 abc
 ```
 
-
-
+``` python
+# Python code snippet
+print("Hello World!")
+```
 
 
 https://www.cnblogs.com/zhaoqingqing/p/3894061.html 鼠标动画很有意思，尝试复刻
