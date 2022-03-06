@@ -7,6 +7,8 @@ excerpt: I am happy to join with you today in what will go down in history as th
 参考
 https://longqian.me/
 
+ {% include_relative /main.html %}
+
 ```c#
 public PlayableDirector director;
 public Dictionary<String, PlayableBinding> bindingDict = new Dictionary<String, PlayableBinding>(); //轨道映射

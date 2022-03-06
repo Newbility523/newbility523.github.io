@@ -10,7 +10,7 @@ title:            ZhuoFu
 tagline:          ''
 description:      '此后如竟没有炬火，我便是唯一的光'
 url:              newbility523.github.io
-# baseurl:          ''
+baseurl:          ''
 
 author:
   name:           'HuangZhuofu'
@@ -29,6 +29,9 @@ kramdown:
   input: GFM
   auto_ids: true
   syntax_highlighter: rouge
+
+include:
+  - "_html"
 
 plugins:
   - jekyll-paginate
