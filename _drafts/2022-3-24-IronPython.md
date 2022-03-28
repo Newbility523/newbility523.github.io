@@ -6,10 +6,6 @@ excerpt: I am happy to join with you today in what will go down in history as th
 
 
 
----
-
-
-
 [IconPython](https://ironpython.net/)
 
 用于 C# 和 python 交互
