@@ -1,0 +1,18 @@
+king entity:
+    EntityStateMachine.cs
+    EntityAnimation.cs
+    EntityAvatar.cs
+    EntityMaterial.cs
+    EntityAnimatorCallBack.cs
+    EntityVisiable.cs
+    DynamicBone.cs
+
+Q&A
+EntityBehavior.cs
+    InitVisiableComponent() 写法问题，两次 GetComponentsInChildren 意义？
+    m_GuardAfterSkillTime 是什么
+    m_LinkTargetName 是什么
+
+    StateMoveGroundHero 和 StateMoveGround3rd 区别
+
+    6.1 DisableNavmeshAgentAndSetPosition

@@ -1,0 +1,27 @@
+Standard Assets
+在这个文件夹中的脚本最先被编译。(作用不是很大，就是处理一些预编译的东西)
+
+Editor
+主要放一些工具类脚本。而且在打包的时候是不会被包含的。
+
+ Plugins
+ 用来放原生的插件，会自动被包含进Build。而且跟Standard Assets一样里面的脚本会被优先变异。方便在别的脚本中引用
+
+ Resources
+ 允许在脚本中通过文件的路径和名称来访问文件。这里面的资源是一定会被包含在Build中的。
+ 即便是没有被使用。
+当资源作为脚本变量被访问时，这些资源在脚本被实例化后就被加载进内存。
+如果资源太大，你可能不希望它被这样加载。那么你可以将这些大资源放进Resources文件夹中，通过Resources.Load来加载。
+当不再使用这些资源了，可以通过Destroy物体，再调用Resources.UnloadUnusedAssets来释放内存。
+
+所以建议这个文件夹下面放一些Prefab和一些Object对象(到底是啥?)因为Prefab会自动的过滤掉不需要引用的资源。
+比如：有十张贴图，Prefab引用了八张，那么没有引用的两张贴图在打包的时候会被过滤掉，不会被打到发布包中。
+如果没有用Prefab的话，那么十张因为没法判断是否被引用那么就会全部被打到发布包中。所以在Resources中使用Prefab可以适当的减少包体大小。
+
+而且Resources中的资源在打包的时候会被压缩的。但是在运行的状态下，文件夹中的资源是只读的，不能被修改。
+
+StreamingAssets
+StreamingAssets也是一个只读的文件夹(运行的时候),打包的时候不会被压缩加密。
+StreamingAssets 只能用过www类来读取！！(因为存在的形式是二进制的)
+
+热更的时候下载的资源是在PersistentDataPath中，因为StreamingAssets是只读的。

@@ -1,0 +1,38 @@
+当一个List<example> a 调用 a.sort()时
+需要 a 实现IComparable或IComparable<example>而不是IComparer<example>。
+找出区别。
+
+Unity ECS 框架
+
+Untiy2018 Job 系统
+
+分支控制方案。
+
+如何直接通过面板获得 3D 场景的单位长度和 UI 单位长度比
+
+
+ANSI                              无格式定义                                       对于中文编码格式是GB2312;
+Unicode                         文本里前两个字节为FF FE              字节流是little endian
+Unicode  big endian      文本里前两个字节为FE FF               字节流是big  endian
+UTF-8                            前两字节为EF BB，第三字节为BF     带bom
+
+
+
+2022.3 月
+
+Python typer 上手
+
+整合 typer 进 PythonSVN
+
+整理 PythonSVN 说明文档
+
+整理 task 流程说明
+
+学习 Key Note 使用
+
+整理近期项目的修改，并用 Key Note 进行演示说明。
+
+个人网站更新
+
+打包流程继续摸索，1.补充完整的增量更新 2.重写分包工具
+

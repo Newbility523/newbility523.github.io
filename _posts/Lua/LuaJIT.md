@@ -1,0 +1,74 @@
+# LuaJIT
+
+**JIT、Interpreter**
+
+## 安装 Luajit 
+
+使用 brew 进行源码安装，需要注意的是，不同架构 CPU，要选择相应版本的 luajit。
+
+目前，2.0.5 的稳定版支持 x86，2.1.0Beta 支持 Arm。
+
+### Mac
+
+#### x86
+
+```shell
+brew install luajit
+```
+
+#### Arm
+
+```shell
+brew install luajit --HEAD
+```
+
+brew 的安装默认是使用 **stable** 的。
+
+[Homebrew 上查找](https://formulae.brew.sh/formula/git#default) ，也可以看到 stable 和 head 对应的安装的 [Luajit 版本](https://luajit.org/download.html)
+
+Luajit 是可以理解为 Lua 的一种实现，原本 Lua 怎么写怎么用，都可以照搬的 Luajit （当然，Luajit 版本要和 Lua 版本对应），例如交互模式和编译模式。只不过 Luajit 采用了 Jit 模式，执行效率非常高。
+
+### Windows
+
+
+
+## 关于 Bytecode
+
+接触 Luajit 是在进入元游大量使用 Lua 和 XLua 的时候，工作流程是：程序编写好 Lua source file，自动化工具转成 Lua bytecode。策划或测试同学通过更新 bytecode， xLua 加载使用。并且大家称呼这个过程 “编一下 Luajit”，所以第一印象就是 “哦，Lua bytecode 就是 Luajit”，在后续项目需要重新编译 Luajit，看了官方文档，才发现这个说法大错特错。
+
+首先，bytecode 是二进制代码，无论是 Lua 还是 Luajit 都能生成，里面存放的是进过转成 Lua 指令的代码，有点像 C# 的 IL 的意思。当我们把一份 Lua source file 丢进虚拟机执行的时候，实际上也是要先转成 bytecode，才会继续执行。那么为什么需要提前转成 bytecode 模式呢？
+
+1. 这个转换过程也是回耗费时间的，提前转就相当于剩下了这部分时间，提高了效率
+2. bytecode 占用空间会比 source file 小
+3. 一定程度上是对代码的加密
+
+## 平台问题
+
+想要正确运行 Luajit 且获得正确的性能，需要 Lua 虚拟机和 Lua bytecode 版本一致。常出现的错误有：
+
+* 64 位机跑着 32 位的 bytecode
+
+* x86 的虚拟机执行着 arm 架构编出来的 byte code
+* x86 架构的平台确运行着 Arm 架构的虚拟机
+
+### 测试
+
+## 使用
+
+介绍下常用指令
+
+```shell
+# 导出 bytecode，会在原路径生成 example.out
+luajit -b example.lua
+# 导出 bytecode，并指定输出名称
+luajit -b example.lua newName.bytes
+```
+
+
+
+## Reference
+
+[Lua 官方 bytecode 说明](https://www.lua.org/manual/3.2/luac.html)
+
+[Wiki Luajit bytecode 说明](http://wiki.luajit.org/Bytecode-2.0)
+
