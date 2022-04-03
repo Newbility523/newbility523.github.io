@@ -55,8 +55,8 @@ Properties
 }
 
 // ...
-
-float4 rectUV;		// sprite 在图集里的 uv
+// sprite 在图集里的 uv
+float4 rectUV;		
 fixed4 frag (v2f i) : SV_Target
 {
     fixed2 r = i.uv;
