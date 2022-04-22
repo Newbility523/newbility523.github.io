@@ -221,6 +221,33 @@ svn cleanup --remove-unversioned
 
 
 
+## SVN 疑难杂症处理汇总
+
+
+
+**svn sqlite[S5]:database is locked**
+
+终端中使用`Ctrl + Z`退出 update 的过程再次 update 容易出现。原因是数据库被锁住了，查看后台可以发现仍有关于 svn 的进程。
+
+```shell
+cd .svn
+mv wc.db wc.db.old
+sqlite3 wc.db.old
+.backup main wc.db
+.exit
+cd ..
+svn cleanup
+```
+
+
+
+**校验错误**
+
+![image-20220419205923125](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220419205923125.png)
+
+
+
 参考
 
 * [Show log problem](https://bugzilla.redhat.com/show_bug.cgi?id=556712)
+* https://blog.csdn.net/oujiangping/article/details/77864660
