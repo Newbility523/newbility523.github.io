@@ -55,27 +55,56 @@ srcDir 必须为存在的目录，desDir 若为不存在的目录则创建，ign
 
 
 
-移除文件夹
+### 移除文件夹
 
-os.rmdir() 移除空文件夹
+#### os.rmdir() 移除空文件夹
 
-os.removedirs() 等于逐级向上调用 os.rmdir
+#### os.removedirs() 等于逐级向上调用 os.rmdir
 
-shutil.rmtree() 全部移除文件夹
-
-
-
-移除文件
-
-os.remove()
+#### shutil.rmtree() 全部移除文件夹
 
 
 
+### 移除文件
+
+#### os.remove()
 
 
-目录遍历
 
-os.walk()
+### 目录遍历
+
+#### os.walk(top, topdown=True, onerror=None, followlinks=False)
+
+- top 顶目录
+- topdown 是否自上而下
+- onerror 用于接收异常处理
+- followlinks 是否对链接文件夹遍历
+
+遍历不包括`.`, `..`, `.DS_Store`(Mac os 下会存在的特殊隐藏目录)，dirs, files 无序，dirs 的递进遍历也无序。
+
+
+
+#### os.listdir(top)
+
+- top 顶目录
+
+返回 top 下的文件和目录，不包括子目录,`.`, `..`, 但包括`.DS_Store`，无序
+
+
+
+如果需要有序遍历，只能自己实现
+
+
+
+汇总
+
+copyTo
+
+copyFilesTo
+
+ensureDir
+
+ensureFile
 
 
 
