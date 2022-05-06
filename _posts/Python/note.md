@@ -84,6 +84,34 @@ shutil.copytree 复制目录
 
 
 
+```json
+{
+    "source path":"E:/Yimi_UI\u8d44\u6e90",
+}
+
+必须添加ensure_ascii=False 和  encoding='utf-8' 才能保证输出json文件中文正常显示
+version_str = json.dumps(new_log, sort_keys=False, indent=4, separators=(',', ':'), ensure_ascii=False)
+
+file_obj = open(os.path.join(".", log_file_name), "w", encoding='utf-8')
+{
+	"source path":"E:/Yimi_UI资源",
+}
+```
+
+
+
+需求
+
+清空目录
+
+更好的json存取方式，目前要考虑编码和序列化问题
+
+判断路径名称是目录还是文件
+
+
+
+
+
 可视化图标使用准则
 
 https://next.startdt.com/charts/column.html
