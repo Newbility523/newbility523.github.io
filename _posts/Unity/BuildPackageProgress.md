@@ -90,6 +90,28 @@ keytool -list -v -keystore  "H:\publish\Android\sdk\qyj2.keystore"
 * IL2Cpp：没有 dll 文件，jniLibs 下会存放 libil2cpp.so
 * Unity 生产成的 libmono.so，libmain.so，libunity.so，libil2cpp.so 这几个文件，是会因为项目变动改变的，有变动要注意更新。
 
+
+
+### 打包问题总结
+
+**System.NotSupportedException: No data is available for encoding 936**
+
+编码问题，常见于打包后，exe 解码中文编码 gkb 的问题时报错。出现的情况很多，我们是出现在对压缩文件进行解压的时候报错。网上的解决方案是将同版本 Unity Editor 安装目录下的 I18N.CJK.dll，I18N.dll，I18N.West.dll 的复制到 Assets 下任一目录。
+
+首先，对于网上的方案尝试避免，毕竟要引入几个 dll，能不加就不加。所以分析问题：出现问题是解压的时候，对本地进行排查只可能是 Window 系统下，zip 对文件名压缩使用的是 gkb 编码（因为压缩文件是 LuaJIT，内容方面是单纯的字节码。）找不到压缩文件名使用 utf-8 的方法，暂时放弃。
+
+避免无解，引入 dll 解决。
+
+实际实际上安装目录下的 dll 有非常多个版本，如果版本不对 Unity 就会报错
+
+**Loading assembly failed: Assets/I18N.dll reason: File does not contain a valid CIL image**
+
+解决办法是，使用 unityjit 下的版本
+
+> 还有个 unityaot 的版本，不知道区别在哪
+
+
+
 ## Gradle 语法
 
 ## AndroidManifest.xml
