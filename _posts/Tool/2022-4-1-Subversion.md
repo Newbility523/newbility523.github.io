@@ -245,6 +245,13 @@ svn cleanup
 
 ![image-20220419205923125](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220419205923125.png)
 
+![image-20220609170607179](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220609170607179.png)
+
+
+
+svn: warning: W155027: Tree conflict can only be resolved to 'working' state; 'D:\BuildProject\Yimi01_Main\Client\project\Assets\RawResources\Character\Prefab\Face\Materials' not resolved
+svn: E155027: Failure occurred resolving one or more conflicts
+
 
 
 参考
