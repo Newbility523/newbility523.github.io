@@ -1,3 +1,42 @@
+# Animation
+
+
+
+Animator / Animation 动态添加回调方法
+
+在使用 Animator 的时候，有时候很纳闷：为什么 Animator 没有 Animation 那样的动画事件？思考后才发现 Animator 状态机的状态是可以由一个或多个动画片段组成，所以不能直接赋予状态回调。
+
+但有时候我们的动画 AnimationClip 和 State 就是以一对一的关系的时候（如 UI 动画），就可以了利用 状态里装载的 AnimationClip 的动画是事件来充当 Animator 状态的回调。
+
+以下提供两种方式
+
+```c#
+_animator = gameObject.GetComponent<Animator>();
+_animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
+_animator.runtimeAnimatorController = _animatorOverrideController;
+
+// MoveToRight 是动画片段名
+var animClip = _animatorOverrideController["MoveToRight"];
+var animEvent = new AnimationEvent();
+animEvent.time = animClip.length;
+
+animEvent.functionName = "UICallBackShow";
+animEvent.messageOptions = SendMessageOptions.DontRequireReceiver;
+animClip.AddEvent(animEvent);
+```
+
+注意
+
+* animEvent 的 time 是指实际时间，而非归一化时间。以上代码演示的是结束回调，所以设置时间为 `animClip.length`
+
+* messageOptions 如果不设置成 `DontRequireReceiver`，回调函数没接收者将会报错。
+
+* 对动画片段添加事件会影响到其他所有引用了此 animtionClip 的地方。
+
+* 以上动画是在动画结尾添加了回调，如果一个状态使用 -1 的速度对动画进行反序播放，那么添加的结尾回调也会对该动画有影响，并且因为 -1，回调事件将会在开始的时候被触发。
+
+
+
 ```c#
 public PlayableDirector director;
     public Dictionary<String, PlayableBinding> bindingDict = new Dictionary<String, PlayableBinding>(); //轨道映射
