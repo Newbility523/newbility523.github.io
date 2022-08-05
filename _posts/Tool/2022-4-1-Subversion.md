@@ -223,8 +223,6 @@ svn cleanup --remove-unversioned
 
 ## SVN 疑难杂症处理汇总
 
-
-
 **svn sqlite[S5]:database is locked**
 
 终端中使用`Ctrl + Z`退出 update 的过程再次 update 容易出现。原因是数据库被锁住了，查看后台可以发现仍有关于 svn 的进程。
@@ -247,10 +245,23 @@ svn cleanup
 
 ![image-20220609170607179](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220609170607179.png)
 
-
-
+```
 svn: warning: W155027: Tree conflict can only be resolved to 'working' state; 'D:\BuildProject\Yimi01_Main\Client\project\Assets\RawResources\Character\Prefab\Face\Materials' not resolved
 svn: E155027: Failure occurred resolving one or more conflicts
+```
+
+
+
+**文件大小写换名**
+
+![image-20220805101438326](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220805101438326.png)
+
+![image-20220805101647180](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220805101647180.png)
+
+```
+svn: E155010: Commit failed (details follow):
+svn: E155010: 'D:\Yimi01\Client\project\Assets\TextAssets\LuaJITScript64\MainGame\Util\UTF8Util.lua' is scheduled for addition, but is missing
+```
 
 
 
