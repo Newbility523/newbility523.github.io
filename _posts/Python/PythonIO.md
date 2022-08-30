@@ -61,7 +61,7 @@ srcDir 必须为存在的目录，desDir 若为不存在的目录则创建，ign
 
 #### os.removedirs() 等于逐级向上调用 os.rmdir
 
-#### shutil.rmtree() 全部移除文件夹
+#### shutil.rmtree() 全部移除文件夹，可设置 ignore_errors 忽略文件夹不存在的报错（任何报错都行）
 
 
 
