@@ -265,6 +265,14 @@ svn: E155010: 'D:\Yimi01\Client\project\Assets\TextAssets\LuaJITScript64\MainGam
 
 
 
+![image-20220809110231262](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220809110231262.png)
+
+![image-20220809110242184](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220809110242184.png)
+
+图集工具无法检测到变化并生成提交。
+
+
+
 参考
 
 * [Show log problem](https://bugzilla.redhat.com/show_bug.cgi?id=556712)
