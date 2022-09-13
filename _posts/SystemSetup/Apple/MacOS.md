@@ -87,3 +87,9 @@ brew doctor
 
 从这里也能看出同 Linux 不太一样的是，可执行文件路径是在`/Applications/appName.app/Contents/bin`下的
 
+
+
+截图工具
+
+[Snipaste](https://www.snipaste.com/download.html#) Win 和 Mac 通用，免费。支持涂鸦标记，比自带的好用很多。
+
