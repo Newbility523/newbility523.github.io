@@ -6,6 +6,10 @@ Rider 的一些设置
 Tools > External Symbols > Decompile methods
 ~~~
 
+PyCharm 会出现输入空格就插入代码提示内容，非常烦人
+
+![image-20220905002046652](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20220905002046652.png)
+
 .ideaVim
 
 ```vim
