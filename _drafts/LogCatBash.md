@@ -26,3 +26,17 @@ adb connect 127.0.0.1:7555
 #原生模拟器
 adb connect (你的IP地址)：5555
 ```
+
+
+
+[判断是否 Development Build](https://www.cnblogs.com/zhaoqingqing/p/13332683.html)
+
+Auto Connect 点选后就无需使用 adb 命令行
+
+不同的 project 不影响真机 profiler
+
+
+
+adb kill-server
+
+adb forward tcp:34999 localabstract:Unity-com.ymgame.g01
