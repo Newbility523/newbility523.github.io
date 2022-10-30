@@ -137,3 +137,13 @@ keytool -list -v -keystore  "H:\publish\Android\sdk\qyj2.keystore"
 ![image-20220117221128470](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220117221128470.png)
 
 删除后正常，但是为什么会出现呢？待查
+
+
+
+
+
+## MacOS 打包问题总结
+
+本来想记录 MacOS 直接 Unity 打包遇到的问题，但是问题太多了，遂放弃。
+
+**总结不要直接在 Mac 平台上直接打 apk，一堆问题。导出 project 再由 android studio 打包。**
