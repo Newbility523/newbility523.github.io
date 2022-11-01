@@ -62,3 +62,34 @@ right = -offsetMax.x
 直接设置横向或者竖向 rt 的长宽，并且不改变 anchor, pivot 以及位置。即使 pivot 设置为 (0, 0.5)，也不会向一方延申设置长宽，以实际的中点延申的长度。
 
 ## 设置属性的顺序是否会有不同结果
+
+
+
+坐标转换
+
+        //实例化点击事件
+        PointerEventData eventDataCurrentPosition = new PointerEventData(UnityEngine.EventSystems.EventSystem.current);
+        //将点击位置的屏幕坐标赋值给点击事件
+        eventDataCurrentPosition.position = new Vector2(screenPosition.x, screenPosition.y);
+    
+        List<RaycastResult> results = new List<RaycastResult>();
+        //向点击处发射射线
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+
+        return results.Count > 0;
+————————————————
+版权声明：本文为CSDN博主「LittleBridLibrary」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_45042494/article/details/106905827
+
+https://stackoverflow.com/questions/56869568/how-can-i-get-screen-position-of-a-ui-element
+
+
+
+Recttransform 注意事项
+
+传入相机
+
+相机设置
+
+相机enable问题
