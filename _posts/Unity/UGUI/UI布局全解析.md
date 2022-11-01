@@ -78,6 +78,8 @@ right = -offsetMax.x
 
 
         return results.Count > 0;
+onstart时使用会有问题
+
 ————————————————
 版权声明：本文为CSDN博主「LittleBridLibrary」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/weixin_45042494/article/details/106905827
