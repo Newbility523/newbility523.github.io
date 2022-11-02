@@ -5,25 +5,41 @@
 先声明各个属性含义
 
 - anchorMax 最大的锚点，由（最大的 X 锚点, 最大的 Y 锚点组成），比例值，范围[0, 1]
+
 - anchorMin 最小的锚点，由（最小的 X 锚点, 最小的 Y 锚点组成），比例只，范围[0, 1]
+
 - pivot 支点/中心点
+
 - anchoredPosition 支点相对于锚点的 2D 坐标
+
 - anchoredPosition3D 支点相对于锚点的 3D 坐标
+
 - sizeDelta 为 RectTransform **边角到锚点的距离和**
+
 - offsetMin 左下角锚点到 RectTransform 左下角的向量
+
 - offsetMax 右上角锚点到 RectTransform 右上角的向量
+
 - rect
   - width 长
+  
   - height 宽
+  
+    
 
 **注意：当锚点不再一起的时候，anchoredPosition 位置会以将当前的锚点，算出一个中心，anchoredPosition 就是新锚点到支点的向量。**
 
 RectTransform 面板几种模式
 
 - X, Y, Width, Height 为支点锚点的向量，和固定的长宽。
+
 - Left, Right, Top, Bottom 为 RectTransform 四边相对于 anchor **内缩**的长度
+
 - Left, Right, OffsetY, Height, 左右边自适应，高度偏移，高度固定
+
 - offsetX, Width, Top, Bottom, 上下自适应，横向偏移，宽度固定
+
+  
 
 ## 获得准确长宽
 
@@ -51,6 +67,8 @@ right = -offsetMax.x
 
 当 anchor 为一点时 (width, height) = offsetMax - offsetMin
 
+
+
 ## 设置长宽
 
 `SetInsetAndSizeFromParentEdge(RectTransform.Edge, pading, length)`
@@ -61,37 +79,42 @@ right = -offsetMax.x
 
 直接设置横向或者竖向 rt 的长宽，并且不改变 anchor, pivot 以及位置。即使 pivot 设置为 (0, 0.5)，也不会向一方延申设置长宽，以实际的中点延申的长度。
 
+
+
 ## 设置属性的顺序是否会有不同结果
 
 
 
-坐标转换
+## 屏幕坐标转换
 
-        //实例化点击事件
-        PointerEventData eventDataCurrentPosition = new PointerEventData(UnityEngine.EventSystems.EventSystem.current);
-        //将点击位置的屏幕坐标赋值给点击事件
-        eventDataCurrentPosition.position = new Vector2(screenPosition.x, screenPosition.y);
-    
-        List<RaycastResult> results = new List<RaycastResult>();
-        //向点击处发射射线
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-
-
-        return results.Count > 0;
-onstart时使用会有问题
-
-————————————————
-版权声明：本文为CSDN博主「LittleBridLibrary」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/weixin_45042494/article/details/106905827
-
-https://stackoverflow.com/questions/56869568/how-can-i-get-screen-position-of-a-ui-element
+屏幕的左下角为（0,0），右上角为（Screen.width, Screen.height）
 
 
 
-Recttransform 注意事项
+**如何获取屏幕坐标**
 
-传入相机
+* Canvas 模式为 Overlay 时，RectTransform.position 即屏幕坐标
 
-相机设置
+* Canvas 模式为 Camera 时
 
-相机enable问题
+  ````c#
+   // camer 为 uiRect 所在 Canvas 的相机
+   screenPos = camera.WorldToScreenPoint(uiRect.position);
+  ````
+
+  
+
+```c#
+//实例化点击事件
+PointerEventData eventDataCurrentPosition = new PointerEventData(UnityEngine.EventSystems.EventSystem.current);
+//将点击位置的屏幕坐标赋值给点击事件
+eventDataCurrentPosition.position = new Vector2(screenPosition.x, screenPosition.y);
+
+List<RaycastResult> results = new List<RaycastResult>();
+//向点击处发射射线
+EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+return results.Count > 0;
+```
+
+> OnStart 时使用会有问题
