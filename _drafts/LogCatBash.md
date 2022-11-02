@@ -37,6 +37,14 @@ Auto Connect 点选后就无需使用 adb 命令行
 
 
 
+但实际情况下，不建议勾选 Auto Connect。官网的描述是，勾选后，会把 Editor ip 打进包里，然后运行游戏时会对 Editor ip 尝试进行连接，从而达到自动连接的效果。
+
+然而在正式的工作环境中，打包任务都是交给专门的打包的机器或者人员复制。此时打进包里的 ip 肯定就不是要进行 profiler 的机器 ip，所以一直无法正常连接。
+
+总结，不要勾选 Auto Connect，而是通过 adb 手动指定。
+
+
+
 adb kill-server
 
 adb forward tcp:34999 localabstract:Unity-com.ymgame.g01
