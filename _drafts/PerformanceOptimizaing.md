@@ -26,6 +26,26 @@ SetNativeSize
 
 
 
+Canvas 不同的渲染模式，在 Profiler 上归属的函数名会有所区别
+
+* Overlay - UGUI.Rendering.RenderOverlays
+* Camera - Camera.Render
+
+
+
+Profiler 单帧的 Timeline 基本可以区分为两大块
+
+1. 左半边的脚本耗时
+2. 右半边渲染耗时
+
+这其实是和 Unity Monobehaviour 的生命周期对得上的
+
+1. Awake / OnStart / OnEnable ...
+
+2. Render
+
+   
+
 https://zhuanlan.zhihu.com/p/103612944
 
 https://www.bilibili.com/read/cv13697715/
@@ -116,3 +136,30 @@ Culling 耗时高
 
 UpdateDepthTexture 耗时高
 
+
+
+## 动静分离
+
+Canvas 内的元素发生变化时，就会触发 UpdateBatches。从测试上看，动静分离并不能有效减低 UpdateBatches 的耗时，似乎只要触发了，就是就会带来固定的耗时。（待定，和）
+
+![UpdateBatches](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedUpdateBatches.png)
+
+测试环境在基本同上，添加了 Sub_Canvas。
+
+分离
+
+![image-20221104005535990](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221104005535990.png)
+
+不分离
+
+![image-20221104005340462](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221104005340462.png)
+
+
+
+以上实验结果表明 Canvas 的重绘会对 UI 渲染带来额外的压力，影响的耗时会在 RenderOverlays 上体现，压力的大小也与 Canvas 上的顶点数相关。
+
+> 所以实际项目情况下不会相差这么大，测试环境下是 400+ Image
+
+
+
+一帧的事情一帧做，但是在低端机中，或者在进行真机 Profiler 时（Profiler 会严重拉低游戏的性能表现），Render Thread 会跨帧。即这一帧内 CPU 前一部分运算都完成了，还需要等 GPU 把上一帧的工作完成。
