@@ -86,7 +86,7 @@ https://www.bilibili.com/read/cv13697715/
 
 一些图文混排的合批结果，可能并不是最优的，或者和直觉上有出入。这里需要留意一个额外的设定
 
-同等深度下，文字的渲染优先级是最先的。
+**同等深度下，文字的渲染优先级是最先的。**
 
 ![image-20221103162112481](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103162112481.png)
 
@@ -106,23 +106,35 @@ Z 轴不为 0 的情况暂时略过，即使对照博客，Draw Call 的数量�
 
 ## Mask/RectMask2D
 
+这两个 Mask 都可是实现遮罩效果，但是 Mask 可以通过指定遮罩图片，实现特殊形状的遮罩。
+
+
+
 ### Mask
 
-Mask 内外的元素不能进行合批
+* Mask 以及 Mask 内元素计算 Depth 的方式是和普通 UI 一样的。
+* Mask 内外的元素不能进行合批
 
-不同 Mask 内的元素是可以合批的，前提是 Mask 的 Depth 一致。
+* 不同 Mask 内的元素是可以合批的，前提是 Mask 的 Depth 一致。
 
-> Depth 是指计算 Draw Call 时的最终深度，并不是指 Hierachy 下的顺序
+  > Depth 是指计算 Draw Call 时的最终深度，并不是指 Hierachy 下的顺序
 
-还有一点一般 UI 渲染就一个 Draw Call，而 Mask 是。
+  还有一点，一般 UI 渲染就一个 Draw Call，而 Mask 是：
 
-Mask -> UI(in Mask) -> Mask
+  1. Mask
+  2. UI in mask
+  3. Mask
 
-所以会出现一个奇怪的情况，两个相同的 Mask（不相交），摆放着一样的内容，如果清空掉一方的内容（仅保留 Mask）， Draw Call 反而会变高。
+  可以理解第一个 Mask 在最底和最高各有一个透明的图片
 
+​	所以会出现一个奇怪的情况，两个相同的 Mask（不相交），摆放着一样的内容，如果清空掉一方的内容（仅保留 Mask）， Draw Call 反而会变高。
 
+* 在 Mask 外的元素仍有 Draw Call
+* **Mask 下的节点会打断外面的合批**，因为 Depth 的计算方式是一样的。
 
-在 Mask 外的元素仍有 Draw Call
+![image-20221104150133644](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221104150133644.png)
+
+![image-20221104150256931](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221104150256931.png)
 
 
 
@@ -130,15 +142,46 @@ Mask -> UI(in Mask) -> Mask
 
 Mask 外的会被直接剔除，不进入 Draw Call
 
+* 计算 Depth 规则一致，
+* Mask 内的元素不能和外面的元素合批，即使是另一个 RectMask2D
+* 不会增加额外 Draw Call
+* 被 Mask 掉的元素，不会算入 Draw Call。
+* Mask2D（在有内容渲染的情况下，被拆剪掉就不算了）在 Hierachy 节点，会切断上下的  Draw Call 合批 （所以，不存在半截 Image 是否会截断外面的合批，因为一定会切断）
 
 
-Culling 耗时高
 
-UpdateDepthTexture 耗时高
+**总结**
+
+|            | 遮罩效果 |                Draw Call                | 负荷点 |
+| :--------: | :------: | :-------------------------------------: | :----: |
+|    Mask    |   丰富   | 单遮罩 Draw Call 较多，**多遮罩可合批** |  GPU   |
+| RectMask2D |   单一   |     **单遮罩较少**，多遮罩不可合批      |  CPU   |
+
+- Mask 通过 Stencil 模板测试的方式实现 Mask 的效果，在使用 Mask 时会修改它节点下的所有 UI 元素 Materail 修改为 Mask 版本。性能负荷会在 GPU 端。
+- RectMask2D 则更多是提前对区域内的元素进行裁剪判断，性能负荷会在 CPU 端。
+
+- Mask 可以更好合批，但是会有些额外的 Draw Call，深度测试的 Material 消耗也会比普通的高一些。
+
+- RectMask2D 实现简单，但效果单一，但是直接打断上下层的合批，实际 Draw Call 不一定比 Mask 少。
+
+  
+
+**对于使用选择来说，我认为**：
+
+- RectMask2D 造成的打断合批问题，一般都能够通过调整节点减低其带来的影响。所以在此基础上先判断项目的性能瓶颈位于 CPU 还是 GPU，如果 GPU 比较吃力，就改一些为 RectMask2D 尝试降低压力。*（可能帮助不大）*
+- 如果界面上需要同一时间显示 1 个以上的遮罩效果时，Mask 的可以批优势会比 RectMask2D 高。
 
 
 
-## 动静分离
+## 动静分离，降低 Rebuild
+
+会导致 Rebuild 的操作
+
+1. 增 / 删节点，显隐（Active）节点
+2. Vertex，Rect，Color，Material，Texture ... 变化
+3. ~~复杂的层级结构~~（有待确认）
+
+
 
 Canvas 内的元素发生变化时，就会触发 UpdateBatches。从测试上看，动静分离并不能有效减低 UpdateBatches 的耗时，似乎只要触发了，就是就会带来固定的耗时。（待定，和）
 
@@ -163,3 +206,9 @@ Canvas 内的元素发生变化时，就会触发 UpdateBatches。从测试上�
 
 
 一帧的事情一帧做，但是在低端机中，或者在进行真机 Profiler 时（Profiler 会严重拉低游戏的性能表现），Render Thread 会跨帧。即这一帧内 CPU 前一部分运算都完成了，还需要等 GPU 把上一帧的工作完成。
+
+
+
+## Rerference
+
+https://edu.uwa4d.com/lesson-detail/126/482/0?isPreview=false
