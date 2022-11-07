@@ -7,6 +7,7 @@
 - 高频操作优化
 - GC 优化
 - XLua Unity 交互优化
+- 其他
 
 
 
@@ -49,17 +50,15 @@ Canvas 不同的渲染模式，体现在 Profiler 上函数名会有所区别
 
 ## Draw Call 
 
-Draw Call 是理解为 CPU 调度 GPU 的行为。图形流水线中 CPU 和 GPU 是并行的，CPU 将需要绘制的对象的数据存到命令缓冲区中，GPU 则在缓冲区取命令进行渲染。
+Draw Call 是理解为 CPU 调度 GPU 的指令。CPU 和 GPU 运作是并行的，CPU 将需要绘制的对象的数据存到命令缓冲区中，GPU 则在缓冲区取命令进行渲染。
 
-每一个 Draw Call CPU 都要准备好配套的渲染数据，包括模型数据，变换数据（旋转，‘缩放），相机位置，Material。若每一个模型或者 UI 都单独调用一次 Draw Call，CPU 大量的算力都会消耗在这里。并且切换 Material 也是一项高耗时操作
+每一个 Draw Call CPU 都要准备好配套的渲染数据，包括模型数据，变换数据（旋转，‘缩放），相机位置，Material。若场景里的每一个模型或者 UI 都单独调用一次 Draw Call，CPU 大量的算力都会消耗在这里。并且切换 Material 也是一项高耗时操作。
 
-所以最好的情况是缓冲区的内容是刚好够 GPU 运行，效率是最高的。但大部分情况下都是 GPU 等待缓冲区的命令，这是因为 CPU 每次准备 Draw Call 的数据是比较多的，如果单次处理的内容太少，Draw Call 性价比就会很低，其次是 GPU 处理速度一般都很强。
+>  如果类比为搬家，相当于每次货车每次只拉一件家具。
 
-​	在不影响渲染结果的情况下，对同一渲染状态的对象合在一个 Draw Call 中处理，从而达到降低 Draw Call 的目的。
+在不影响渲染结果的情况下，对同一渲染状态的对象合在一个 Draw Call 中处理，从而达到降低 Draw Call 的目的，也就是动态合批 Dynmic Batch。
 
-所以 Draw Call 的优化，大部分情况来说，就是尽可能将多个对象一起绘制，这种行为称为**合批**。
-
-了解了 Draw Call 。造成的性能瓶颈一般是在 CPU，但并不是低 Draw Call 就代表高帧率。如果单一 Draw Call 内容过多，会造成带宽繁忙，帧率一样上不去。
+> *Draw Call 性能瓶颈一般是在 CPU，但并不是低 Draw Call 就代表高帧率。如果单一 Draw Call 内容过多，会造成带宽繁忙，帧率一样上不去。最好的情况是缓冲区的内容是刚好够 GPU 运行，效率是最高的。但大部分情况下都是 GPU 等待缓冲区的命令。*
 
 
 
@@ -71,15 +70,13 @@ Draw Call 是理解为 CPU 调度 GPU 的行为。图形流水线中 CPU 和 GPU
 
 ![image-20221103001807303](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103001807303.png)
 
-![image-20221103001845587](/Users/huangzhuofu/Library/Application Support/typora-user-images/image-20221103001845587.png)
+![image-20221103001845587](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103001845587.png)
 
 **Hight draw call**
 
 ![image-20221103001733343](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103001733343.png)
 
 ![image-20221103001638581](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103001638581.png)
-
-
 
 结论：
 
@@ -89,24 +86,50 @@ Draw Call 是理解为 CPU 调度 GPU 的行为。图形流水线中 CPU 和 GPU
 
 
 
-### **UGUI 的 Draw Call 的计算方式**
+### 如何使用 Dynmic Batch 
 
-为了保证渲染正确性（遮挡关系），UGUI 会对 Canvas 下的节点依据 Hierachy 顺序，深度优先遍历，为每一个 UI 元素标记上一个深度值 Depth。深度值计算方式如下（Z 轴都为 0 的情况）
+这个优化是自动的，这需要 UI 满足几个条件：
 
-1. 如果 UI 元素前没相交到到其他元素，则 Depth = 0
-2. 如果有相交其他元素，取相交元素里的最高 MaxDepth，然后判断双方的 Material、Texture：
-   1. 同 Material
-      1. 相同 Texture，Depth = MaxDepth
-      2. 不同 Texture，Depth = MaxDepth + 1
-   2.  不同 Material，则 Depth = MaxDepth + 1
+1. Material 相同
+
+2. Texture 相同
+
+3. Depth 相同
+
+   
+
+一般情况下，UGUI 元素用的都是同一个 Material，即内置的 Default UI Material，所以 Material 是一致的。
+
+但是 Texture 就不是了，默认情况下都是各类小图资源。为了降低 Draw Call 就需要将小图组装成一张大图，即图集 Altas，这样就满足第二个条件。
+
+第三个条件就需要了解 Depth 的计算方式了
+
+
+
+#### Depth 的计算方式
+
+Depth 即深度，是用来描述渲染层级的一个指标。
+
+为了记录正确渲染顺序（遮挡关系），UGUI 会对 Canvas 下的节点依据 Hierachy 顺序，深度优先遍历，为每一个 UI 元素标记上一个深度值 Depth。深度值计算方式如下（Z 轴都为 0 的情况）
+
+1. 跳过不渲染节点 Alpha = 0，Scale = 0，Active = false 等
+2. 检查 UI 元素前没相交到到其他元素，
+   1. 没有，Depth = 0
+   2. 有
+      1. 取相交元素里的最高 MaxDepth，然后判断双方的 Material、Texture：
+         1. 同 Material
+            1. 相同 Texture，Depth = MaxDepth
+            2. 不同 Texture，Depth = MaxDepth + 1
+
+         2. 不同 Material，则 Depth = MaxDepth + 1
+
 
 获得 Depth 后，再进行升序排序，优先级：Depth Num > Material ID > Texture ID。
 
-最后同 Depth Num & Material ID & Texture ID 的对象进行合批处理，放在一个 Draw Call 中。
+最后同 Depth Num & Material ID & Texture ID 的对象就会进行 Dynmic Batch 处理，放在一个 Draw Call 中。
 
-> xxx ID，是指 xxx 对象的 ID。一般情况下，UGUI 元素用的都是同一个 Material，即内置的 Default UI Material，所以 Material ID 是一致的。
+> xxx ID，是指 xxx 对象的 ID。
 >
-> 区别就是 Texture ID，也就是图集素材的 ID。
 
 
 
@@ -120,11 +143,20 @@ Draw Call 是理解为 CPU 调度 GPU 的行为。图形流水线中 CPU 和 GPU
 
 如上，即使是在 Hierachy 下处于最底，依然优先渲染。
 
-可以得出另一个结论：根据合批的计算算法，Hierachy 下的顺序并不是最终的渲染顺序。
+> *可以得出另一个结论：根据合批的计算算法，Hierachy 下的顺序并不是最终的渲染顺序。*
+
+
+
+**总结**
+
+* 常用的素材打成一张图集
+* 
 
 
 
 接下来在再对特殊情况情形说明
+
+
 
 
 
@@ -221,7 +253,7 @@ UGUI 渲染时，会将 Canvas 下的 UI 元素都重新生成一个 Mesh，其�
 会导致 Rebuild 的操作：
 
 1. 增 / 删节点，显隐（Active）节点
-2. Vertex，Rect，Color，Material，Texture ... 变化
+2. Vertex（移动也算），Rect，Color，Material，Texture ... 变化
 3. ~~复杂的层级结构~~（有待确认）
 
 变化会带来的影响：
