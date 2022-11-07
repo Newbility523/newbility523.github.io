@@ -317,7 +317,11 @@ Canvas 内的元素发生变化时，就会触发 UpdateBatches。从测试上�
 
 
 
+## 其他
 
+Text 默认值
+
+Raycast Target 默认不要勾选
 
 待定问题
 
