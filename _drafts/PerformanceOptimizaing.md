@@ -9,7 +9,9 @@
 - XLua Unity 交互优化
 - 其他
 
+![image-20221108094520631](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221108094520631.png)
 
+![image-20221108094324106](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221108094324106.png)
 
 同效果，更优方案
 
@@ -23,9 +25,7 @@ SetNativeSize
 
 
 
-
-
-![image-20221107211245698](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedPicBedimage-20221107211245698.png)
+![image-20221107211245698](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221107211245698.png)
 
 Profiler 单帧的 Timeline 基本可以区分为两大块
 
@@ -54,7 +54,7 @@ Draw Call 是理解为 CPU 调度 GPU 的指令。CPU 和 GPU 运作是并行的
 
 每一个 Draw Call CPU 都要准备好配套的渲染数据，包括模型数据，变换数据（旋转，‘缩放），相机位置，Material。若场景里的每一个模型或者 UI 都单独调用一次 Draw Call，CPU 大量的算力都会消耗在这里。并且切换 Material 也是一项高耗时操作。
 
->  如果类比为搬家，相当于每次货车每次只拉一件家具。
+>  *如果类比为搬家，相当于每次货车每次只拉一件家具。*
 
 在不影响渲染结果的情况下，对同一渲染状态的对象合在一个 Draw Call 中处理，从而达到降低 Draw Call 的目的，也就是动态合批 Dynmic Batch。
 
@@ -78,7 +78,7 @@ Draw Call 是理解为 CPU 调度 GPU 的指令。CPU 和 GPU 运作是并行的
 
 ![image-20221103001638581](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103001638581.png)
 
-结论：
+**结论：**
 
 不同于脚本，DrawCall 的带来的性能影响无法拆分成单个分析。但是还是能比较容易观察高 DrawCall 整体带来的耗时提升（**UGUI.Rendering**），由 **0.015ms** 上升至 **0.263ms**。
 
@@ -208,7 +208,7 @@ Mask 外的会被直接剔除，不进入 Draw Call
 
 * Mask2D（在有内容渲染的情况下，被拆剪掉就不算了）在 Hierachy 节点，会切断上下的  Draw Call 合批 （所以，不存在半截 Image 是否会截断外面的合批，因为一定会切断）
 
-  ![image-20221107210303791](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedPicBedimage-20221107210303791.png)
+  ![image-20221107210303791](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221107210303791.png)
 
 
 
