@@ -66,12 +66,6 @@ Draw Call 是理解为 CPU 调度 GPU 的指令。CPU 和 GPU 运作是并行的
 
 ![image-20221103001638581](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221103001638581.png)
 
-**结论：**
-
-不同于脚本，DrawCall 的带来的性能影响无法拆分成单个分析。但是还是能比较容易观察高 DrawCall 整体带来的耗时提升（**UGUI.Rendering**），由 **0.015ms** 上升至 **0.263ms**。
-
-但是依照预测，仅仅渲染图片的情况下，提升 DrawCall 引起的性能瓶颈应该会体现在 CPU 端（Main Thread）。实际却是 Render Thread 端整体耗时变化明显。
-
 
 
 ### 如何使用 Dynmic Batch 
@@ -105,7 +99,7 @@ Depth 即深度，是用来描述渲染层级的一个指标。
 > *相交演示*
 
 1. 跳过不渲染节点 Alpha = 0，Scale = 0，Active = false 等
-2. 检查 UI 元素前没相交到到其他元素，
+2. 检查 UI 元素前没相交到到其他元素
    1. 没有，Depth = 0
    2. 有
       1. 取相交元素里的最高 MaxDepth，然后判断双方的 Material、Texture：
