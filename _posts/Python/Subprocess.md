@@ -102,3 +102,42 @@ finally:
 
 
 
+最终整合
+
+```python
+def run_cmd(cmd_str, timeout=None, cwd=None, reallog=True):
+   	print(f"running cmd:{cmd_str}")
+    pipe = subprocess.Popen(
+        # shlex.split 可以统一平台正确识别路径
+        shlex.split(cmd_str),
+        shell=False,
+        stdout=subprocess.PIPE,
+        cwd=cwd,
+        # ironPython 只支持 Py3.4，对于 text = True 的情况 3.4 会报错
+        # 使用该选项可以省掉后面的解码
+        # text=True,
+    )
+
+    is_win = platform.system() == "Windows"
+    encoding = "gbk" if is_win else "utf8"
+    # real log 执行会导致 stdout 在下方无法获取数据
+    # if reallog:
+    #     for info in iter(pipe.stdout.readline, b''):
+    #         print(str(info, encoding=encoding).strip())
+
+    out_str, std_err, return_code = None, None, 0
+    stdout, stderr = pipe.communicate(timeout=timeout)
+    return_code = pipe.returncode
+    if stdout is not None:
+        out_str = stdout.decode(encoding=encoding)
+    if stderr is not None:
+        std_err = stderr.decode(encoding=encoding)
+
+    print("cmd result:", return_code)
+    return out_str, std_err, return_code
+```
+
+
+
+
+

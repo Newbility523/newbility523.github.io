@@ -9,19 +9,7 @@
 - XLua Unity 交互优化
 - 其他
 
-![image-20221108094520631](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221108094520631.png)
 
-![image-20221108094324106](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221108094324106.png)
-
-同效果，更优方案
-
-UI 隐藏通过缩放处理
-
-减少不必要的操作 
-
-SetParent
-
-SetNativeSize
 
 
 
@@ -112,6 +100,10 @@ Depth 即深度，是用来描述渲染层级的一个指标。
 
 为了记录正确渲染顺序（遮挡关系），UGUI 会对 Canvas 下的节点依据 Hierachy 顺序，深度优先遍历，为每一个 UI 元素标记上一个深度值 Depth。深度值计算方式如下（Z 轴都为 0 的情况）
 
+![image-20221108094520631](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221108094520631.png)
+
+> *相交演示*
+
 1. 跳过不渲染节点 Alpha = 0，Scale = 0，Active = false 等
 2. 检查 UI 元素前没相交到到其他元素，
    1. 没有，Depth = 0
@@ -150,13 +142,9 @@ Depth 即深度，是用来描述渲染层级的一个指标。
 **总结**
 
 * 常用的素材打成一张图集
-* 
-
-
+* 如果 Text 节点影响 Draw Call 较大，甚至单独分层
 
 接下来在再对特殊情况情形说明
-
-
 
 
 
@@ -231,7 +219,7 @@ Mask 外的会被直接剔除，不进入 Draw Call
 
 **对于使用选择来说，我认为**：
 
-- RectMask2D 造成的打断合批问题，一般都能够通过调整节点减低其带来的影响。所以在此基础上先判断项目的性能瓶颈位于 CPU 还是 GPU，如果 GPU 比较吃力，就改一些为 RectMask2D 尝试降低压力。*（可能帮助不大）*
+- RectMask2D 造成的打断合批问题，一般都能够通过调整节点降低其带来的影响。所以在此基础上先判断项目的性能瓶颈位于 CPU 还是 GPU，如果 GPU 比较吃力，就改一些为 RectMask2D 尝试降低压力。*（可能帮助不大）*
 - 如果界面上需要同一时间显示 1 个以上的遮罩效果时，Mask 的可以批优势会比 RectMask2D 高。
 
 
@@ -322,6 +310,22 @@ Canvas 内的元素发生变化时，就会触发 UpdateBatches。从测试上�
 Text 默认值
 
 Raycast Target 默认不要勾选
+
+
+
+同效果，更优方案
+
+UI 隐藏通过缩放处理
+
+减少不必要的操作 
+
+SetParent
+
+SetNativeSize
+
+
+
+
 
 待定问题
 

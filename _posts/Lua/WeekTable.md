@@ -1,16 +1,18 @@
 # Lua Week Table 弱表
 
-## week table 说明
+[TOC]
 
-lua中引用类型包括tables, function, thread, userdata。引用分为强引用和弱引用。不是弱表时，只用当自身引用设为`nil`, 或生命周期结束，gc才会回收相关内存；而弱表的键/值/键或值没有**被引用**时，就会在gc被设为`nil`并回收空间。
+## Week table 说明
 
-怎样是弱表：对一个表的metatable中的`__mode`设为"k", "v", "kv"时。如下：
+lua 中引用类型包括 tables, function,  thread, userdata。引用分为强引用和弱引用。不是弱表时，只用当自身引用设为`nil`, 或生命周期结束，gc 才会回收相关内存；而弱表的键/值/键或值没有**被引用**时，就会在 gc 被设为`nil`并回收空间。
+
+怎样是弱表：对一个表的 metatable 中的`__mode`设为 "k",  "v",  "kv" 时。如下：
 
 ``` lua
 local t = {}
--- 当键值没被引用时，可被gc
-setmetatable(t, { __mode = "v" })
 -- 当值没被引用时，可被gc
+setmetatable(t, { __mode = "v" })
+-- 当键没被引用时，可被gc
 setmetatable(t, { __mode = "k" })
 -- 当键或值没被引用时，可被gc
 setmetatable(t, { __mode = "kv" })
@@ -23,36 +25,40 @@ setmetatable(t, { __mode = "kv" })
 local t = {}
 t[1] = { "something" }
 
--- 此时a就引用了t, 调用gc并不会回收a和t[1]
+-- 此时 a 就引用了 t, 调用 gc 并不会回收 a 和 t[1]
 a = t[1]
 collectgarbage("collect")
 
--- 解掉引用，调用gc会回收a，但不会回收t[1]，因为t[1]是仍指向{ "something" }创建时的空间
+-- 解掉引用，调用 gc 会回收 a，但不会回收 t[1]，因为 t[1] 是仍指向 { "something" } 创建时的空间
 a = nil
 collectgarbage("collect")
 
 
 -- 弱引用/弱表
 local t = {}
-setmetatable(t, { __mode = "v"})
+setmetatable(t, { __mode = "v" })
 t[1] = { "something" }
 
--- 不变：此时a就引用了t[1], 调用gc并不会回收a和t[1]
+-- 不变：此时 a 就引用了 t[1], 调用 gc 并不会回收 a 和 t[1]
 a = t[1]
 collectgarbage("collect")
 
--- 解掉引用，调用gc会回收a，同时回收t[1]，因为t是以键值表示的弱表
+-- 解掉引用，调用 gc 会回收 a，同时回收 t[1]，因为 t 是以键值表示的弱表
 a = nil
 collectgarbage("collect")
 ```
 
-## week table应用
 
-week table的特性在于无需手动检查和清理无用的资源。当是去了引用时，Lua自动调用gc的时候就会清除掉，方便省心。
+
+## Week table应用
+
+week table 的特性在于无需手动检查和清理无用的资源。当是去了引用时，Lua 自动调用 g c的时候就会清除掉，方便省心。
+
+
 
 ### 有默认值的表
 
-当创建表时，通常希望表的值再未指定的时候有默认值。通常的方法是设置metatable的`__index`。
+当创建表时，通常希望表的值再未指定的时候有默认值。通常的方法是设置 metatable 的 `__index`。
 
 最简单做法
 
@@ -90,7 +96,7 @@ local function set_default(t, v)
 end
 ```
 
-优化之缓存做法：利用week table特性，每次对表设置默认值，先检查默认值是否有缓存，存在的话，使用已经存在的meta表。对相同默认值出现十分频繁的时候使用。
+优化之缓存做法：利用 week table 特性，每次对表设置默认值，先检查默认值是否有缓存，存在的话，使用已经存在的 meta 表。对相同默认值出现十分频繁的时候使用。
 
 ``` lua
 local weekTable = {}
@@ -127,7 +133,9 @@ print("t.b = " .. t.b)
 -->> ouput: 200
 ```
 
-## week table 不同弱表类型回收差异详解
+
+
+## Week table 不同弱表类型回收差异详解
 
 对上方用弱表作为缓存实现带默认值的表进行分析，添加功能函数
 
@@ -159,7 +167,7 @@ print("weekTable.len = " .. table_len(weekTable))
 --> ouput: weekTable.len = 0
 ```
 
-当修改`__mode = "k"`：这种情况略为复杂，需要default和t同时解除引用才可以。因为作为值，{ a = 10, b = 200} 被default以及t的metatable引用着。
+当修改`__mode = "k"`：这种情况略为复杂，需要 default 和 t 同时解除引用才可以。因为作为值，{ a = 10, b = 200 } 被 default 以及 t 的 metatable 引用着。
 
 ``` lua
 collectgarbage("collect")
