@@ -25,6 +25,8 @@ ssh test = ssh -i 私钥 userName@host
 
 
 
+[ssh 传输文件](https://www.cnblogs.com/jiangyao/archive/2011/01/26/1945570.html)，在 VPN 还没装好的时候，很救命。
+
 frp 安装
 
 Wget 下载

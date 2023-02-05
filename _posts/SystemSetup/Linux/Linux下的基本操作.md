@@ -119,3 +119,7 @@
 * newgrp 切换用户组
 
 直接使用 `newgrp groupA` 切换到所属的其他用户组 groupA
+
+
+
+[Tmux 使用](https://zhuanlan.zhihu.com/p/137715607)
