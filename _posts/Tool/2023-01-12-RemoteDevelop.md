@@ -1,5 +1,6 @@
 ---
-title: "VSCode 远程办公"
+title: "使用 VSCode 远程开发"
+layout: default
 author: huangzhuofu
 keywords: frp, vscode, remove develop, ssh
 data: 2023-01-12 00:17:26
@@ -8,7 +9,7 @@ summary: 远程办公配置说明
 
 ## VSCode 远程办公
 
-[TOC]
+<!-- [TOC] -->
 
 以下方式基于 Frp 内网穿透实现，内网穿透相当于将本机电脑暴露在公网上，为了安全，所以请先确保自己的电脑的账号密码足够复杂。
 

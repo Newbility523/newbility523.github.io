@@ -24,6 +24,13 @@
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
                                  <link rel="shortcut icon" href="/public/favicon.ico">
 
+
+  {% if site.tags == "" %}
+      {% include collecttags.html %}
+  {% endif %}
+
+  {% if page.robots %} <meta name="robots" content="{{page.robots}}" />{% endif %}
+
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
 </head>

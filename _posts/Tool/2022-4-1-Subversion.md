@@ -1,5 +1,9 @@
 ---
-
+layout: post
+title: SVN 学习
+excerpt: SVN 学习 
+tags: abc
+categories: Personal
 ---
 
 虽然工作日常都是使用 TortoiseSVN，但是在一些打包机或者远程上并 TortoiseSVN，甚至没有桌面系统，SVN 命令行模式就有必要掌握一下了。而且如果在脚本工具要用 SVN 也需要使用命令行调用。
