@@ -17,6 +17,7 @@
         `layout: page` in the front-matter. See readme for usage.
       {% endcomment %}
 
+      <a class="sidebar-nav-item"><a href="{{ site.baseurl }}/archives/">Posts Archives</a></li>
       {% assign pages_list = site.pages %}
       {% for node in pages_list %}
         {% if node.title != null %}
@@ -26,12 +27,13 @@
         {% endif %}
       {% endfor %}
 
+
       <!-- <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a> -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 
       <div class='footer'>
         <a href="https://github.com/Newbility523"><i class="fab fa-github" style='font-size:24px'></i></a>
-        <a href="https://stackoverflow.com/"><i class="fab fa-stack-overflow" style='font-size:24px'></i></a>
+        <a href="https://leetcode.com/ZhuoFu_Huang/"><i class="fab fa-stack-overflow" style='font-size:24px'></i></a>
         <br></br>
       </div>
       <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
