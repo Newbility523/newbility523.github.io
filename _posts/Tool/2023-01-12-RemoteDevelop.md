@@ -1,8 +1,9 @@
 ---
 title: "使用 VSCode 远程开发"
-layout: default
+layout: post
 author: huangzhuofu
-keywords: frp, vscode, remove develop, ssh
+excerpt: 远程办公配置说明
+tags: frp vscode remove develop ssh
 data: 2023-01-12 00:17:26
 summary: 远程办公配置说明
 ---

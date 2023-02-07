@@ -1,4 +1,11 @@
-# OC
+---
+layout: post
+title: Objective C
+excerpt: 接 IOS 包时 OC 的学习笔记
+tags: 
+categories: 
+---
+
 
 ## 函数调用 / 消息传递机制
 

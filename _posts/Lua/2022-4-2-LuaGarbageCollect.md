@@ -1,3 +1,11 @@
+---
+layout: post
+title: Lua GC 机制
+excerpt: Lua 5.1 的垃圾回收机制说明
+tags: Lua
+categories: Personal
+---
+
 # 垃圾回收
 
 Lua 垃圾是自动回收的，但是也提供了 API 用于手动控制回收时机，在合适的时候手动调用 GC，较为平缓的控制内存占用。
