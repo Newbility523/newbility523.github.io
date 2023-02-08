@@ -13,16 +13,17 @@ layout: default
     ]
   </span>
   <span class="post-date">{{ page.date | date_to_string }}</span>
-  <div class="container">  
-    <div class="contents">
-      <article class="markdown-body">
-        {{ page.content }}
-      </article>
-    </div>   
-    <div class="table-of-contents">
-      <h2>Contents</h2>
+  <!-- <div class="container">  
+    <div class="contents"> -->
+      <!-- <article class="markdown-body"> -->
       {% include toc.html html=content %}
-    </div>
+        {{ page.content }}
+      <!-- </article> -->
+    <!-- </div>    -->
+    <!-- <div class="table-of-contents"> -->
+      <!-- <h2>Contents</h2> -->
+      <!-- {% include toc.html html=content %} -->
+    <!-- </div> -->
   </div>
 </div>
 
