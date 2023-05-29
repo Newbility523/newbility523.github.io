@@ -63,11 +63,11 @@ keytool -list -v -keystore  "H:\publish\Android\sdk\qyj2.keystore"
 
 ### Mono
 
-![MonoProject](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/MonoProject.png)
+<img src="https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/MonoProject.png" alt="MonoProject" style="zoom:50%;" />
 
 ### IL2Cpp
 
-![IL2CppProject](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/IL2CppProject.png)
+<img src="https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/IL2CppProject.png" alt="IL2CppProject" style="zoom: 50%;" />
 
 ## 目录说明
 
@@ -83,6 +83,8 @@ keytool -list -v -keystore  "H:\publish\Android\sdk\qyj2.keystore"
 * build.gradle：gradle 构建配置
 * proguard-unity.txt：代码混淆配置
 * local.properties：当前项目的本地 sdk，ndk 路径。如果和 android studio 全局配置不一致才会有数据。
+
+
 
 ### Mono 和 IL2Cpp 项目区别
 
@@ -109,6 +111,26 @@ keytool -list -v -keystore  "H:\publish\Android\sdk\qyj2.keystore"
 解决办法是，使用 unityjit 下的版本
 
 > 还有个 unityaot 的版本，不知道区别在哪
+
+
+
+**unityLibrary:compileDebugJavaWithJavac [参考](https://stackoverflow.com/questions/67606085/unitylibrarycompiledebugjavawithjavac)**
+
+不同版本 Unity 导出的 Andriod 项目支持的 gradle 版本会不一致。所以 Unity 直接 Build 可以导出 apk，但是导出项目通过 gradle 再打一次就不行，并报 compileDebugJavaWithJavac 任务错误。gradle 版本对照表如下：
+
+|   Unity Version   |    Gradle Version    |
+| :---------------: | :------------------: |
+| Unity 2020.3.30f1 | gradle-6.1.1-bin.zip |
+
+把 ```gradle/wrapper/gradle-wrapper.properties```的 distributionUrl 调整为合适版本。如：
+
+```
+# gradle-wrapper.properties 内
+# old
+# distributionUrl=https\://services.gradle.org/distributions/gradle-7-bin.zip
+# new
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-bin.zip
+```
 
 
 

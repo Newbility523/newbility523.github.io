@@ -215,6 +215,15 @@ svn resolve --accept theirs-full -R
 
 
 
+一些常用组合指令
+
+```shell
+# 查看冲突
+svn st | grep '^C'
+```
+
+
+
 ## 清理文件
 
 清理本地新增文件
