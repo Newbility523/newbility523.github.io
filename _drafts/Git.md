@@ -30,6 +30,8 @@ git remote add origin URL
 ## 然后建立连接
 ## git branch --set-upstream-to=REMOTE_NAME/BRANCH_NAME LOCAL_BRANCH_NAME
 git branch --set-upstream-to=origin/master master
+## 由于政治原因 git 以及 github 使用 main 作为默认主分支
+git branch --set-upstream-to=origin/main main
 
 #最后进行全部更新
 git pull
@@ -50,6 +52,27 @@ git pull origin master
 ```shell	
 git config --global --add remote.origin.proxy "127.0.0.1:10809"
 ```
+
+
+
+## .gitignore
+
+在 git 管理的目录下添加 .gitignore 用于忽略文件的追踪。如
+
+```.gitignroe
+.idea/**
+```
+
+以上用于忽略当前目录下的 `.idea` 目录及其下所有文件
+
+**但是这个配置不会影响原有的文件**，那怎么清掉之前失手提交多的文件呢。
+
+```.gitignore
+git rm --cached <file>
+git rm -r --cached <folder>
+```
+
+只影响 repo，不会删除本地文件。
 
 
 
