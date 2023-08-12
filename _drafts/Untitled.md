@@ -33,11 +33,13 @@ Wget 下载
 
 
 
+* [ssh 详细教程](https://www.cnblogs.com/sunsky303/p/12835254.html)
+
+
+
 https://loster5683.github.io/2019/12/17/frp/
 
 https://blog.csdn.net/lsllll44/article/details/122703139
-
-https://www.cnblogs.com/sunsky303/p/12835254.html
 
 
 
@@ -86,4 +88,8 @@ kill -9 进程ID
 大概率服务器问题。
 
 用户无操作一段时间后自动断开连接，从而以当前登录 shell 开启的服务都会被关闭，所以需要使用后台启动方式。
+
+
+
+
 

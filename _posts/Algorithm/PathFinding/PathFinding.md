@@ -2,7 +2,9 @@
 
 参考文档 https://www.redblobgames.com/pathfinding/a-star/introduction.html
 
+Jump point search https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html
 
+Jump point search 优化手段 https://zhuanlan.zhihu.com/p/290924212#:~:text=JPS%20%E5%8F%88%E5%90%8D%E8%B7%B3%E7%82%B9,%E5%AF%BB%E6%89%BE%E5%90%8E%E7%BB%A7%E8%8A%82%E7%82%B9%E7%9A%84%E6%93%8D%E4%BD%9C%E3%80%82
 
 Breadth First Serach 广度优先寻路
 

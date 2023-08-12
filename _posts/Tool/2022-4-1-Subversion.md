@@ -234,6 +234,14 @@ svn cleanup --remove-unversioned
 
 
 
+还原文件到某个版本
+
+https://stackoverflow.com/questions/2812901/reverting-single-file-in-svn-to-a-particular-revision
+
+
+
+
+
 ## SVN 疑难杂症处理汇总
 
 **svn sqlite[S5]:database is locked**
@@ -283,6 +291,46 @@ svn: E155010: 'D:\Yimi01\Client\project\Assets\TextAssets\LuaJITScript64\MainGam
 ![image-20220809110242184](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220809110242184.png)
 
 图集工具无法检测到变化并生成提交。
+
+
+
+Linux 使用 SVN 的问题
+
+[参考](https://stackoverflow.com/questions/2599281/cant-make-svn-store-passwords-even-though-the-configuration-is-set-to-allow-it)
+
+在使用 wsl 时，才发现 linux 下使用 svn 的任何指令都需要输入账号密码，无法接受。经过一阵搜索以及验证。大致有三种解决办法
+
+* 修改 `~/.subversion/config` 或 `~/.subversion/servers` 的配置
+* 使用密码管理工具 `gpg-agent`
+* 手动修改 `~/.subversion/auth/svn.simple`
+
+网上大多数的教程讲的都是怎么调整 `config` 或 `servers` 文件保存密码，但是随着 svn 版本迭代，这种方式已经被**禁止**了。（只允许密码管理工具）
+
+> window，mac 上用的好好的是因为，系统也带了密码管理工具。
+
+
+
+ `gpg-agent` 的用法没去尝试，大致了解最终需要通过 `svn gpg-agent command` 的形式使用 svn。虽然可以改 alias 解决这个问题，但是还是太麻烦了点。
+
+> 正途，但是太麻烦
+>
+> Ubuntu 16.10 (*Subversion* 1.9.4 versus 1.9.3 in 16.04) *svn* has stopped using *GPG*-*Agent* and started using GNOME Keyring to store my password.
+>
+> 突然又看到不支持了，无所谓了，反正不用
+
+
+
+原理上虽然 svn 已经屏蔽了保存密码的操作，但是我们可以强制将密码写入认证文件中。这就是最后的解决办法，简单明了。
+
+> 明文保存密码虽然确实不安全，但通过秘钥登录 ssh 能很大程度避免密码泄露问题，所以能接受。
+
+
+
+注意：
+
+如果后续种种原因对 repo 输入密码，会覆盖掉原本改动的 `svn.simple` 
+
+如果调整的配置文件乱了，可以直接删掉 `~/.subverion` ，重新执行 svn 命令就会重新生成
 
 
 

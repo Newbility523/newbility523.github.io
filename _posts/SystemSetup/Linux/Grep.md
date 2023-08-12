@@ -90,3 +90,18 @@ egrep -r -l 'a\sb' *
 
 这里只说 grep 的命令效果，其中正则的使用和普通的正则表达式一致，正则的用法参考之前的笔记。
 
+
+
+## 匹配行尾问题
+
+对~~于单行文本，用`$`就可以匹配行尾巴，但是启用多行模式~~
+
+由于系统原因，行尾的表示方式有多种，并不是单纯的 `\n` ，有以下三种
+
+- **`\r`** = CR (Carriage Return) → Used as a new line character in Mac OS before X
+- **`\n`** = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
+- **`\r\n`** = CR + LF → Used as a new line character in Windows
+
+所以当想匹配文本到行尾，正确的做法是 `\r?\n`。这样已经能处理绝大部分情况，以 `\r` 换行的老 Mac 可以不管。
+
+不同系统下 `$` 会是不同代指吗？还是因语言而异？
