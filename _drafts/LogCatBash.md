@@ -47,4 +47,6 @@ Auto Connect 点选后就无需使用 adb 命令行
 
 adb kill-server
 
-adb forward tcp:34999 localabstract:Unity-com.ymgame.g01
+adb forward tcp:55000 localabstract:Unity-com.yimigame.g01.main
+
+然后选 127.0.0.1 进行链接

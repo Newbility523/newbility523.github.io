@@ -76,6 +76,21 @@ git rm -r --cached <folder>
 
 
 
+git 还原本地修改操作
+
+```shell
+# 清理没版本跟踪的文件
+git clean -f
+# 清理没版本跟踪的目录
+git clean -fd
+```
+
+
+
+
+
+
+
 # 问题
 
 hint: You have divergent branches and need to specify how to reconcile them.

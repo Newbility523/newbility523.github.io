@@ -17,7 +17,7 @@ nowReviewNum=`svn up $luapath | grep "revision" |  grep -o "[0-9]\+"`
 
 # sh Example-2: 提交本地所有文件
 cd %PRODUCTION_RES_PATH%\win 
-svn add . --force 
+svn add xxxx/xxx/xxx.lua --force 
 for /f "usebackq tokens=2*" %%i in (`svn status ^| findstr /r "^\!"`) do svn delete --force "%%i %%j" 
 svn commit -m "auto commit the resources win assets " 
 echo "win resources assets commit Ok." 

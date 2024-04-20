@@ -18,7 +18,7 @@ shutil.copy
 
 |   方法   |                            Des                            |   SrcStr    |   DesStr    | NeedExist | IncludeMeta | Replace |
 | :------: | :-------------------------------------------------------: | :---------: | :---------: | :-------: | :---------: | :-----: |
-|   copy   |                           复制                            |    File     | File or Dir |    Yes    |     No      |   Yes   |
+| listdir  |                           复制                            |    File     | File or Dir |    Yes    |     No      |   Yes   |
 |  copy2   | 复制文件包括原数据，等同于`shutil.copy + shutil.copystat` |    File     | File or Dir |    Yes    |     Yes     |   Yes   |
 | copyFile |                        仅文件内容                         |    File     |    File     |    Yes    |     No      |   No    |
 | copymode |                        复制权限位                         | File or Dir | File or Dir |    Yes    |     No      |  None   |

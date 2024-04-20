@@ -1,0 +1,179 @@
+调整前 4%-15% （0%-26%）
+
+发现问题，耗时分析
+
+协议数据在 ReadInt 中已经获得，剩余的都是 XLua 的交互消耗，一半多的时间其实都放浪费在了语言的交互上。
+
+可行方案可分为 C++ 做网络库。本身 C++ 的效率更高，和 C 的交互更直接，也就和 Lua 交互更直接。
+
+完全重写 
+
+或者减少 C# 和 XLua 的交互
+
+1. C# 接收字节流统一传送到 Lua 解析，解析库也是 Lua 的
+
+2. C# 接收字节流统一传动到 Lua，按需传给 C 解析
+
+3. C# 接收字节流给到 C++，C++ 解析传值给 Lua
+
+   
+
+已有方案
+
+1. C# 目前在用
+2. C++ 遗留方案重启（旧项目后期中已经停用）
+3. C++ 重写
+
+操作
+
+单独抽离解析协议字段部分到 C++ 解析更可行性
+
+仿照 C# 解析流程，使用 Lua 重新实现，C# 还是通过 XLua 传入字节数组。
+
+stream.lua 演示
+
+协议解析说明
+
+字节布局说明
+
+``` Lua
+-- Lua 协议结构
+SLoginQueue = class(MQ.IMessageBase,"SLoginQueue")
+SLoginQueue._type = 10001
+...
+-- __is 即 SerializeStream.cs 对象
+function SLoginQueue:__read(__is)
+    self.queueSize_I = __is:readInt()
+    self.queueIndex_I = __is:readInt()
+    self.enterSec_I = __is:readInt()
+    self.perEnterCount_I = __is:readInt()
+    self.perEnterSec_I = __is:readInt()
+end
+```
+
+``` c#
+// SerializeStream.cs
+public int readInt()
+{
+    int v = 0;
+
+    if (_useBitMark && readBitFlag())
+    {
+        v = 0;
+    }
+    else
+    {
+        v = _byteBuffer.ReadInt();
+    }
+
+    return v;
+}
+```
+
+``` lua
+-- 使用 Lua 解析
+function s:readInt()
+    local value = 0
+
+    if useBitMark and self:readBitFlag() then
+        value = 0
+    else
+    		-- <i 是 struct 库的语法，在 byteBuffer 的 byteBufferReadPos 位置上读取一个小端 int32
+        value, byteBufferReadPos = struct.unpack("<i", byteBuffer, byteBufferReadPos)
+    end
+
+    return value
+end
+```
+
+
+
+
+
+default 字节
+
+isDefault，长度，内容 * 长度
+
+最终耗时对比，还是略慢于现有的 C# 方案。
+
+猜测原因是 struct 的方式依然是来回传递字节流以及多参。更优的方式应该是字节流直接存于 C++，每次读取只能结构的顺序，而不是再传一层 Pattern 做解析。
+
+但是奇怪的是，测试的时候结果是相近的。
+
+C++方案后续，略微调整 Struct.c ，暴露接口接收 C# 传入的字节流，如果效率有明显提升，可以尝试自己实现字节解析。
+
+
+
+优化 XLua 和 C# 的交互效率。
+
+查看耗时，可以发现耗时发生在 ObjectTranslator.FastGetCSObj()，ObjectTranslatorPool.Find()，按名字推测是查找对象有关。
+
+那么尝试性将方法改成静态，调用堆栈减少很多。
+
+问题，XLua 经验里要减少对 . 操作，但是原定的方案里已经直接取 stream。调用的方式是 Stream:ReadInt()
+
+查看 XLua Wrap，发现区别。
+
+
+
+浅析 XLua 交互过程
+
+
+
+
+
+
+
+测试代码
+
+```lua
+-- C#
+local __is = Rmi.rmiInputSerializestream()
+local messageType = __is:readInt()
+local messageBase = MessageManager:createMessage(messageType)
+
+__is:TestSave()
+local begin = socket.gettime()
+for i = 1, testCount do
+    if messageType then
+        messageBase:__read(__is)
+    end
+
+    __is:TestReset()
+end
+
+local useTime = socket.gettime() - begin
+LogError("C# count = %s, use time = %.2fms", testCount, useTime * 1000)
+
+-- C
+local __is_lua = Rmi.get__is_lua()
+local messageType_lua = __is_lua:readInt()
+local messageBase_lua = MessageManager:createMessage(messageType_lua)
+__is_lua:TestSave()
+begin = socket.gettime()
+for i = 1, testCount do
+    if messageBase_lua then
+        messageBase_lua:__read(__is_lua)
+    end
+
+    __is_lua:TestReset()
+end
+
+useTime = socket.gettime() - begin
+LogError("C count = %s, use time = %.2fms", testCount, useTime * 1000)
+```
+
+对象方法调用栈
+
+![](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20231206212331787.png)
+
+静态方法调用栈
+
+![image-20231206212241089](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20231206212241089.png)
+
+
+
+总结
+
+1. 使用静态函数
+2. 静态函数的参数和返回值均是基本类型

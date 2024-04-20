@@ -142,7 +142,7 @@ kill -9 进程ID
 
 ```shell
 # 后台启动
-nohup ./frps -c ./frps.ini > logs.out 2>1 &
+nohup ./frps -c ./ad137.ini > logs.out 2>1 &
 ```
 
 > 连接远程服务器时，用户无操作一段时间后自动断开连接，那么以当前登录 shell 开启的服务都会被关闭，所以需要使用后台启动方式，保持 frp 服务运行。

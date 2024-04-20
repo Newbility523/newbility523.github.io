@@ -240,6 +240,14 @@ https://stackoverflow.com/questions/2812901/reverting-single-file-in-svn-to-a-pa
 
 
 
+查看两个版本变更文件的后缀名
+
+```shell
+svn diff -r 282731:291467 --summarize | awk -F'/' '{print $NF}' | awk -F'.' 'NF>1{print $NF}' | sort | uniq -c
+```
+
+
+
 
 
 ## SVN 疑难杂症处理汇总
