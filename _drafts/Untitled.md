@@ -6,7 +6,7 @@ https://pysvn.sourceforge.io/Docs/pysvn_prog_ref.html
 
 云服务器选购
 
-ssh 密钥登录
+ssh-copy-id 密钥登录
 
 ssh -i 私钥 userName@host
 

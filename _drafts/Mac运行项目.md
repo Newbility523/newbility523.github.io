@@ -8,6 +8,29 @@
 
 
 
+## 打开项目报错
+
+### TexturePacker Dll 报错
+
+```C#
+Assembly 'Assets/codeandweb.com/Editor/TexturePackerImporter.dll' will not be loaded due to errors:
+Assembly name 'TPImporter' does not match file name 'TexturePackerImporter'
+```
+
+将 TexturePackerImporter 改名成 TPImporter 可解决，具体原因未知。
+
+
+
+## IPackerPolicy 报错
+
+```C#
+public class CustomPackerPolicy : IPackerPolicy
+```
+
+IPackerPolicy 已经弃用，CustomPackerPolicy 也没在使用，整个文件注释即可。
+
+
+
 ## LuaScript 无法正常运行
 
 运行游戏报错，整理下来一共两个原因
