@@ -117,6 +117,27 @@ svn revert file.txt
 
 
 
+## 检出
+
+项目太大，在已有目录下只额外检出特定的目录
+
+```bash
+# 补充 checkout 某个特定目录
+svn update path/to/missing/directory
+```
+
+如果还有层级较深，每个层级可能都有部分的需要，部分不需要则
+
+```bash
+# 先设置父目录为仅包含直接子项
+svn update --set-depth immediates parent/directory
+
+# 然后单独 checkout 需要的子目录
+svn update --set-depth infinity parent/directory/child
+```
+
+
+
 ## Conflict 冲突
 
 ### Text Conflict

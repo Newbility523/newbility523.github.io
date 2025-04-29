@@ -28,7 +28,7 @@
 
 ## Lua5.1.4
 
-注意，必须使用 Lua5.1.4，其他 5.1 版本 Makefile 有缺陷。
+注意，必须使用 Lua5.1.4，其他 5.1 版本 Makefile 有缺陷。必须使用gitBash，否则有些指令无法识别，除非改 makefile。
 
 进入 Lua 目录，使用 gitbash 进行本节操作，cmd 会有一些语法不支持。
 
@@ -64,7 +64,10 @@ Luarocks 是 Lua 的包管理工具，测试脚本里引用到了第三方模块
 
 执行命令
 
+
+
 ```shell
+# 注意，使用cmd
 # 必须进行 luarocks 设置，否则无法安装包。
 luarocks config --local lua_dir C:/Lua/5.1  --lua-version 5.1
 # 然后就可以安装包了，如果环境变量中没有 MinGW 会提示安装，根据上方提示
@@ -117,6 +120,7 @@ Lua/
 │   └── share
 ├── LuaJIT/
 │   ├── luajit.exe
+│   ├── lua51.dll	
 │   └── lua/
 │       └── jit
 └── luarocks/
