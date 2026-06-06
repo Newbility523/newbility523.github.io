@@ -61,6 +61,7 @@ html {
   padding: 2rem 2rem 2rem 2rem;
   color: rgba(255,255,255,.5);
   background-color: #202020;
+  z-index: 0;
 }
 @media (min-width: 48rem) {
   .sidebar {
@@ -148,6 +149,16 @@ a.sidebar-nav-item:focus {
 .content {
   padding-top:    4rem;
   padding-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.post-toc {
+  display: none;
+}
+
+.post-main {
+  min-width: 0;
 }
 
 @media (min-width: 48rem) {
@@ -292,4 +303,74 @@ a.sidebar-nav-item:focus {
 .theme-long-qian .content a,
 .theme-long-qian .related-posts li a:hover {
   color: #8f5536;
+}
+
+.comments {
+  margin: 3rem 0 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+  clear: both;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.comments-inner,
+.giscus,
+.giscus-frame {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.giscus-frame {
+  border: 0;
+}
+
+.comments h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.comments-placeholder {
+  padding: 1rem;
+  color: #777;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.post-toc h2 {
+  margin-top: 0;
+  margin-bottom: .75rem;
+  font-size: .9rem;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.post-toc ul {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.post-toc ul ul {
+  padding-left: .75rem;
+  margin-top: .35rem;
+}
+
+.post-toc li {
+  margin-bottom: .35rem;
+}
+
+.post-toc a {
+  display: inline-block;
+  color: #8f5536;
+  transition: color .15s ease, border-color .15s ease, padding-left .15s ease;
+}
+
+.post-toc a.active {
+  padding-left: .35rem;
+  color: #303030;
+  font-weight: bold;
+  border-left: 3px solid #8f5536;
 }

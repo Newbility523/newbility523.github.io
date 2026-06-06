@@ -2,44 +2,170 @@
 layout: default
 ---
 
-<div class="post">
-  <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-tags">
-    [&nbsp;
-    {% for tag in page.tags %}
-      {% capture tag_name %}{{ tag }}{% endcapture %}
-      <a class="no-underline" href="/tag/{{ tag_name | replace: ' ', '_' }}"><code class="highligher-rouge"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>    
-    {% endfor %}
-    ]
-  </span>
-  <span class="post-date">{{ page.date | date_to_string }}</span>
-  <!-- <div class="container">  
-    <div class="contents"> -->
-      <!-- <article class="markdown-body"> -->
-      {% include toc.html html=content %}
-        {{ page.content }}
-      <!-- </article> -->
-    <!-- </div>    -->
-    <!-- <div class="table-of-contents"> -->
-      <!-- <h2>Contents</h2> -->
-      <!-- {% include toc.html html=content %} -->
-    <!-- </div> -->
-  </div>
-</div>
+{% capture post_toc %}
+  {% include toc.html html=content h_min=2 h_max=4 skip_no_ids=true %}
+{% endcapture %}
+{% assign post_toc = post_toc | strip %}
 
-<div class="related">
+{% if post_toc != '' %}
+  <style>
+    body.layout-post.toc-layout-ready .content.post-container {
+      box-sizing: border-box;
+      max-width: none !important;
+      width: auto !important;
+      margin-left: 26rem !important;
+      margin-right: 4rem !important;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
 
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
-    {% for post in site.related_posts limit:3 %}
-      <li>
-        <h3>
-          <a href="{{ post.url }}">
-            {{ post.title }}
-            <small>{{ post.date | date_to_string }}</small>
-          </a>
-        </h3>
-      </li>
-    {% endfor %}
-  </ul>
+    body.layout-post.toc-layout-ready .post-layout {
+      display: grid !important;
+      grid-template-columns: minmax(0, 53rem) minmax(10rem, 12rem);
+      gap: 1.5rem;
+      align-items: start;
+      justify-content: start;
+      max-width: 67rem;
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    body.layout-post.toc-layout-ready .post-toc {
+      display: block !important;
+      position: sticky;
+      top: 4rem;
+      max-height: calc(100vh - 5rem);
+      padding-left: 1rem;
+      overflow: auto;
+      font-size: .8rem;
+      line-height: 1.35;
+      border-left: 1px solid #eee;
+    }
+
+    body.layout-post.toc-layout-ready .post-toc[hidden] {
+      display: block !important;
+    }
+
+    @media (min-width: 96rem) {
+      body.layout-post.toc-layout-ready .content.post-container {
+        margin-left: 46rem !important;
+        margin-right: 4rem !important;
+      }
+    }
+  </style>
+  <script>
+    (function () {
+      function getPostTocItems() {
+        var toc = document.querySelector('.post-toc');
+        if (!toc) return [];
+
+        return Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]')).map(function (link) {
+          var rawId = link.getAttribute('href').slice(1);
+          var decodedId = rawId;
+
+          try {
+            decodedId = decodeURIComponent(rawId);
+          } catch (error) {
+            decodedId = rawId;
+          }
+
+          return {
+            link: link,
+            heading: document.getElementById(decodedId) || document.getElementById(rawId)
+          };
+        }).filter(function (item) {
+          return item.heading;
+        });
+      }
+
+      function updateActivePostTocItem() {
+        var toc = document.querySelector('.post-toc');
+        var items = getPostTocItems();
+        if (!toc || toc.hidden || items.length === 0) return;
+
+        var active = items[0];
+        var offset = 100;
+
+        items.forEach(function (item) {
+          if (item.heading.getBoundingClientRect().top <= offset) {
+            active = item;
+          }
+        });
+
+        items.forEach(function (item) {
+          item.link.classList.toggle('active', item === active);
+        });
+
+        var linkRect = active.link.getBoundingClientRect();
+        var tocRect = toc.getBoundingClientRect();
+
+        if (linkRect.top < tocRect.top || linkRect.bottom > tocRect.bottom) {
+          toc.scrollTop += linkRect.top - tocRect.top - 24;
+        }
+      }
+
+      function updatePostTocLayout() {
+        var toc = document.querySelector('.post-toc');
+        if (!toc) return;
+
+        var ready = window.innerWidth >= 1000;
+        document.body.classList.toggle('toc-layout-ready', ready);
+        toc.hidden = !ready;
+
+        updateActivePostTocItem();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updatePostTocLayout);
+      } else {
+        updatePostTocLayout();
+      }
+
+      window.addEventListener('resize', updatePostTocLayout);
+      window.addEventListener('scroll', updateActivePostTocItem, { passive: true });
+    })();
+  </script>
+{% endif %}
+
+<div class="post-layout{% if post_toc == '' %} post-layout-no-toc{% endif %}">
+  <main class="post-main">
+    <article class="post">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <span class="post-tags">
+        [&nbsp;
+        {% for tag in page.tags %}
+          {% capture tag_name %}{{ tag }}{% endcapture %}
+          <a class="no-underline" href="/tag/{{ tag_name | replace: ' ', '_' }}"><code class="highligher-rouge"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+        {% endfor %}
+        ]
+      </span>
+      <span class="post-date">{{ page.date | date_to_string }}</span>
+      {{ page.content }}
+    </article>
+
+    {% include comments.html %}
+
+    <div class="related">
+      <h2>Related Posts</h2>
+      <ul class="related-posts">
+        {% for post in site.related_posts limit:3 %}
+          <li>
+            <h3>
+              <a href="{{ post.url }}">
+                {{ post.title }}
+                <small>{{ post.date | date_to_string }}</small>
+              </a>
+            </h3>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </main>
+
+  {% if post_toc != '' %}
+    <aside class="post-toc" aria-label="Table of contents" hidden>
+      <h2>Contents</h2>
+      {{ post_toc }}
+    </aside>
+  {% endif %}
 </div>
