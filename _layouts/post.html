@@ -13,19 +13,19 @@ layout: default
       box-sizing: border-box;
       max-width: none !important;
       width: auto !important;
-      margin-left: 26rem !important;
-      margin-right: 4rem !important;
+      margin-left: 16.5rem !important;
+      margin-right: 2rem !important;
       padding-left: 1rem;
       padding-right: 1rem;
     }
 
     body.layout-post.toc-layout-ready .post-layout {
       display: grid !important;
-      grid-template-columns: minmax(0, 53rem) minmax(10rem, 12rem);
-      gap: 1.5rem;
+      grid-template-columns: minmax(0, 56rem) minmax(8rem, 9rem);
+      gap: 1.3rem;
       align-items: start;
       justify-content: start;
-      max-width: 67rem;
+      max-width: 66.3rem;
       margin-left: 0;
       margin-right: auto;
     }
@@ -35,11 +35,11 @@ layout: default
       position: sticky;
       top: 4rem;
       max-height: calc(100vh - 5rem);
-      padding-left: 1rem;
+      padding-left: .8rem;
       overflow: auto;
       font-size: .8rem;
       line-height: 1.35;
-      border-left: 1px solid #eee;
+      border-left: 1px solid var(--color-border);
     }
 
     body.layout-post.toc-layout-ready .post-toc[hidden] {
@@ -48,7 +48,7 @@ layout: default
 
     @media (min-width: 96rem) {
       body.layout-post.toc-layout-ready .content.post-container {
-        margin-left: 46rem !important;
+        margin-left: 25rem !important;
         margin-right: 4rem !important;
       }
     }
@@ -108,7 +108,7 @@ layout: default
         var toc = document.querySelector('.post-toc');
         if (!toc) return;
 
-        var ready = window.innerWidth >= 1000;
+        var ready = window.innerWidth >= 1360;
         document.body.classList.toggle('toc-layout-ready', ready);
         toc.hidden = !ready;
 
