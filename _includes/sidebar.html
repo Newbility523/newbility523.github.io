@@ -10,19 +10,31 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a class="active" href="{{ site.baseurl }}/">Home</a>
+      {% if page.url == "/" %}
+        <a class="sidebar-nav-item active" aria-current="page">Home</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/">Home</a>
+      {% endif %}
 
       {% comment %}
         The code below dynamically generates a sidebar nav of pages with
         `layout: page` in the front-matter. See readme for usage.
       {% endcomment %}
 
-      <a class="sidebar-nav-item"><a href="{{ site.baseurl }}/archives/">Posts Archives</a></li>
+      {% if page.url == "/archives/" %}
+        <a class="sidebar-nav-item active" aria-current="page">Posts Archives</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/archives/">Posts Archives</a>
+      {% endif %}
       {% assign pages_list = site.pages %}
       {% for node in pages_list %}
         {% if node.title != null %}
           {% if node.layout == "page" %}
-            <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+            {% if page.url == node.url %}
+              <a class="sidebar-nav-item active" aria-current="page">{{ node.title }}</a>
+            {% else %}
+              <a class="sidebar-nav-item" href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+            {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
