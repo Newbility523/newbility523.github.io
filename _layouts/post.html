@@ -12,28 +12,34 @@ layout: default
     body.layout-post.toc-layout-ready .content.post-container {
       box-sizing: border-box;
       max-width: none !important;
-      width: auto !important;
-      margin-left: 16.5rem !important;
-      margin-right: 2rem !important;
+      width: min(
+        var(--layout-content-width),
+        calc(100vw - var(--layout-sidebar-width) - var(--layout-sidebar-width) - var(--layout-content-gap) - var(--layout-content-gap))
+      ) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding-left: 1rem;
       padding-right: 1rem;
     }
 
     body.layout-post.toc-layout-ready .post-layout {
-      display: grid !important;
-      grid-template-columns: minmax(0, 56rem) minmax(8rem, 9rem);
-      gap: 1.3rem;
-      align-items: start;
-      justify-content: start;
-      max-width: 66.3rem;
-      margin-left: 0;
+      display: block !important;
+      max-width: none;
+      margin-left: auto;
       margin-right: auto;
     }
 
     body.layout-post.toc-layout-ready .post-toc {
       display: block !important;
-      position: sticky;
+      position: fixed;
       top: 4rem;
+      left: calc(
+        50vw + min(
+          28rem,
+          calc(50vw - var(--layout-sidebar-width) - var(--layout-content-gap))
+        ) + 1.3rem
+      );
+      width: 9rem;
       max-height: calc(100vh - 5rem);
       padding-left: .8rem;
       overflow: auto;
@@ -48,8 +54,12 @@ layout: default
 
     @media (min-width: 96rem) {
       body.layout-post.toc-layout-ready .content.post-container {
-        margin-left: 25rem !important;
-        margin-right: 4rem !important;
+        width: min(
+          var(--layout-content-width),
+          calc(100vw - var(--layout-sidebar-width) - var(--layout-sidebar-width) - var(--layout-content-gap) - var(--layout-content-gap))
+        ) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
     }
   </style>

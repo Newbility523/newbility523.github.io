@@ -34,6 +34,12 @@
 html {
   font-family: var(--font-body);
 }
+
+:root {
+  --layout-sidebar-width: 16rem;
+  --layout-content-width: 56rem;
+  --layout-content-gap: 1.65rem;
+}
 @media (min-width: 48rem) {
   html {
     font-size: 17px;
@@ -73,7 +79,7 @@ html {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 16rem;
+    width: var(--layout-sidebar-width);
     text-align: left;
   }
 }
@@ -83,7 +89,7 @@ html {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 16rem;
+    width: var(--layout-sidebar-width);
     text-align: left;
   }
 }
@@ -93,7 +99,7 @@ html {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 24rem;
+    width: var(--layout-sidebar-width);
     text-align: left;
   }
 }
@@ -215,22 +221,42 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: 48rem) {
   .content {
-    max-width: 56rem;
-    margin-left: 16.5rem;
-    margin-right: 2rem;
+    width: calc(100vw - var(--layout-sidebar-width) - 3rem);
+    max-width: var(--layout-content-width);
+    margin-left: calc(var(--layout-sidebar-width) + 1.5rem);
+    margin-right: 1.5rem;
   }
 }
 
 @media (min-width: 64rem) {
   .content {
-    margin-left: 16.5rem;
-    margin-right: 2rem;
+    width: calc(100vw - var(--layout-sidebar-width) - 3rem);
+    max-width: var(--layout-content-width);
+    margin-left: calc(var(--layout-sidebar-width) + 1.5rem);
+    margin-right: 1.5rem;
+  }
+}
+
+@media (min-width: 75rem) {
+  .content {
+    width: min(
+      var(--layout-content-width),
+      calc(100vw - var(--layout-sidebar-width) - var(--layout-sidebar-width) - var(--layout-content-gap) - var(--layout-content-gap))
+    );
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 @media (min-width: 96rem) {
   .content {
-    margin-left: 25rem;
-    margin-right: 4rem;
+    width: min(
+      var(--layout-content-width),
+      calc(100vw - var(--layout-sidebar-width) - var(--layout-sidebar-width) - var(--layout-content-gap) - var(--layout-content-gap))
+    );
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
