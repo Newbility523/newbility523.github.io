@@ -4,28 +4,4 @@ title: Algorithm
 permalink: /algorithm/
 ---
 
-{% assign current_month = "" %}
-{% assign algorithm_count = 0 %}
-
-<section class="archive-page">
-  <h1 class="page-title">Algorithm</h1>
-
-{% for post in site.posts %}
-  {% if post.section == "algorithm" %}
-    {% capture month %}{{ post.date | date: '%m%Y' }}{% endcapture %}
-    {% if month != current_month %}
-      {% if algorithm_count != 0 %}</ul>{% endif %}
-      <h5>{{ post.date | date: '%B %Y' }}</h5><ul>
-      {% assign current_month = month %}
-    {% endif %}
-    {% assign algorithm_count = algorithm_count | plus: 1 %}
-  <li><span class="time">{{ post.date | date: "%d/%m/%Y" }}</span>		<a href="{{ post.url }}">{{ post.title }}</a></li>
-  {% endif %}
-{% endfor %}
-
-{% if algorithm_count != 0 %}
-</ul>
-{% else %}
-<p>No algorithm posts yet.</p>
-{% endif %}
-</section>
+{% include archive-list.html section="algorithm" empty_message="No algorithm posts yet." %}

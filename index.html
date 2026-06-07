@@ -51,12 +51,12 @@ title: Home
         <article class="home-post-item">
           <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
           <div class="home-post-meta">
-            <span>{{ post.date | date_to_string }}</span>
+            <span>{{ post.date | date: "%b %d, %Y" }}</span>
             {% if post.section %}
               <span>{{ post.section | replace: "-", " " }}</span>
             {% endif %}
           </div>
-          <p>{{ post.excerpt | strip_html | truncate: 180 }}</p>
+          {% include post-excerpt.html post=post limit=180 %}
         </article>
       {% endfor %}
     </div>

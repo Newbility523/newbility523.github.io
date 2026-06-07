@@ -14,8 +14,10 @@ permalink: /tag/
     {% assign tag_name = item[0] %}
     {% assign posts = item[1] %}
     <li>
-      <a href="{{ site.baseurl }}/tag/{{ tag_name | replace: ' ', '_' }}/">{{ tag_name }}</a>
-      <span>{{ posts | size }}</span>
+      <a href="{{ site.baseurl }}/tag/{{ tag_name | replace: ' ', '_' }}/">
+        <span class="tag-index-name">{{ tag_name }}</span>
+        <span class="tag-index-count">{{ posts | size }}</span>
+      </a>
     </li>
   {% endfor %}
   </ul>

@@ -2,8 +2,9 @@
 layout: default
 ---
 
+{% capture post_body %}{% include post-body.html content=content title=page.title %}{% endcapture %}
 {% capture post_toc %}
-  {% include toc.html html=content h_min=2 h_max=4 skip_no_ids=true %}
+  {% include toc.html html=post_body h_min=2 h_max=4 skip_no_ids=true %}
 {% endcapture %}
 {% assign post_toc = post_toc | strip %}
 
@@ -149,8 +150,8 @@ layout: default
         {% endfor %}
         ]
       </span>
-      <span class="post-date">{{ page.date | date_to_string }}</span>
-      {{ page.content }}
+      <span class="post-date">{{ page.date | date: "%b %d, %Y" }}</span>
+      {{ post_body }}
     </article>
 
     {% include comments.html %}
@@ -163,7 +164,7 @@ layout: default
             <h3>
               <a href="{{ post.url }}">
                 {{ post.title }}
-                <small>{{ post.date | date_to_string }}</small>
+                <small>{{ post.date | date: "%b %d, %Y" }}</small>
               </a>
             </h3>
           </li>

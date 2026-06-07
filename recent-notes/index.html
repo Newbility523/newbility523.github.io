@@ -15,8 +15,8 @@ title: Recent Notes
         </a>
       </h1>
 
-      <span class="post-date">{{ post.date | date_to_string }}</span>
-      {{ post.excerpt }}
+      <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+      {% include post-excerpt.html post=post limit=180 %}
     </div>
     {% endfor %}
   </div>

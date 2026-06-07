@@ -1,0 +1,39 @@
+{% assign archive_current_year = "" %}
+{% assign archive_current_month = "" %}
+{% assign archive_list_open = false %}
+{% assign archive_count = 0 %}
+{% assign archive_title = include.title | default: page.title %}
+
+<section class="archive-page archive-timeline-page">
+  <h1 class="page-title">{{ archive_title }}</h1>
+
+  <div class="archive-timeline" id="archives">
+{% for post in site.posts %}
+  {% capture archive_year %}{{ post.date | date: '%Y' }}{% endcapture %}
+  {% capture archive_month %}{{ post.date | date: '%m' }}{% endcapture %}
+  {% capture archive_month_label %}{{ post.date | date: '%b' }}{% endcapture %}
+  {% if archive_year != archive_current_year %}
+    {% if archive_list_open %}</ul>{% assign archive_list_open = false %}{% endif %}
+    <time class="archive-year" datetime="{{ archive_year }}">{{ archive_year }}</time>
+    {% assign archive_current_month = "" %}
+    {% assign archive_current_year = archive_year %}
+  {% endif %}
+  {% if archive_month != archive_current_month %}
+    {% if archive_list_open %}</ul>{% assign archive_list_open = false %}{% endif %}
+    <time class="archive-month-node" datetime="{{ archive_year }}-{{ archive_month }}">{{ archive_month_label }}</time>
+    <ul class="archive-timeline-list">
+    {% assign archive_list_open = true %}
+    {% assign archive_current_month = archive_month %}
+  {% endif %}
+    {% assign archive_count = archive_count | plus: 1 %}
+      <li class="archive-timeline-item">
+        <span class="archive-date" aria-label="{{ post.date | date: '%b %d, %Y' }}">{{ post.date | date: "%d" }}</span>
+        <a class="archive-post-link" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+      </li>
+{% endfor %}
+
+{% if archive_list_open %}
+    </ul>
+{% endif %}
+  </div>
+</section>
