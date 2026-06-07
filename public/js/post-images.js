@@ -24,13 +24,9 @@
     );
   }
 
-  function prepareLink(link, image) {
+  function prepareLink(link) {
     link.classList.add('post-image-lightbox');
     link.setAttribute('data-gallery', 'post-images');
-
-    if (image.alt) {
-      link.setAttribute('data-title', image.alt);
-    }
   }
 
   function wrapImage(image) {
@@ -39,7 +35,7 @@
     var link = image.closest('a');
     if (link) {
       if (isImageUrl(link.getAttribute('href'))) {
-        prepareLink(link, image);
+        prepareLink(link);
       }
 
       return;
@@ -51,7 +47,7 @@
     link = document.createElement('a');
     link.href = imageUrl;
     link.setAttribute('aria-label', image.alt ? 'Open image: ' + image.alt : 'Open image');
-    prepareLink(link, image);
+    prepareLink(link);
 
     image.parentNode.insertBefore(link, image);
     link.appendChild(image);
