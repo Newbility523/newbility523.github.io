@@ -304,6 +304,23 @@ img {
   border-radius: 7px;
 }
 
+.post-image-lightbox {
+  display: block;
+  margin: 0 0 1rem;
+  cursor: zoom-in;
+}
+
+.post-image-lightbox img {
+  margin-bottom: 0;
+  transition: filter .16s ease, box-shadow .16s ease;
+}
+
+.post-image-lightbox:hover img,
+.post-image-lightbox:focus img {
+  filter: brightness(.97);
+  box-shadow: 0 10px 28px rgba(95, 52, 27, .16);
+}
+
 /* Tables */
 table {
   margin-bottom: 1rem;
