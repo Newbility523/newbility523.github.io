@@ -1,3 +1,11 @@
+---
+layout: post
+title: "阴影"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # 阴影
 
 1. Pass 的 Tags 设置 `"LightMode" = "ShadowCaster"` 来表明该 Pass 为投射阴影 Pass，否则当 Shader 的包含 Fallback 时，会找 Fallback 中其他投射阴影 Pass。

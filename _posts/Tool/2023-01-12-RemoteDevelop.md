@@ -3,9 +3,11 @@ title: "使用 VSCode 远程开发"
 layout: post
 author: huangzhuofu
 excerpt: 远程办公配置说明
-tags: frp vscode remove develop ssh
+tags: ["dev-tools", "vscode", "frp", "remote", "develop", "ssh"]
 data: 2023-01-12 00:17:26
 summary: 远程办公配置说明
+section: dev-tools
+topic: vscode
 ---
 
 ## VSCode 远程办公
@@ -290,4 +292,3 @@ Adminstrator为用户名，如果不是，按照实际的填
 **Window 重启无法连接**
 
 确保`服务`的 open ssd server 处于打开状态
-

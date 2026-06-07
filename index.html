@@ -3,34 +3,62 @@ layout: default
 title: Home
 ---
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+{% assign game_dev_count = 0 %}
+{% assign algorithm_count = 0 %}
 
-    <span class="post-date">{{ post.date | date_to_string }}</span>
-    {{ post.excerpt | post.content }}
-  </div>
-  {% endfor %}
-</div>
+{% for post in site.posts %}
+  {% if post.section == "game-dev" %}
+    {% assign game_dev_count = game_dev_count | plus: 1 %}
+  {% elsif post.section == "algorithm" %}
+    {% assign algorithm_count = algorithm_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ site.baseurl }}page{{paginator.next_page}}">Previous</a>
-  {% else %}
-    <span class="pagination-item older">Previous</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
-    {% else %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}page{{paginator.previous_page}}">Newer</a>
-    {% endif %}
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
-</div>
+<main class="home-page">
+  <section class="home-intro">
+    <h1>{{ site.title }}</h1>
+    <p>游戏开发、工具链、算法和编程语言笔记。这里是入口页，完整时间线在 Posts Archives。</p>
+  </section>
+
+  <section class="home-sections" aria-label="Content directions">
+    <a class="home-section-card" href="{{ site.baseurl }}/game-dev/">
+      <span class="home-section-name">Game Dev</span>
+      <span class="home-section-count">{{ game_dev_count }} posts</span>
+      <span class="home-section-desc">Unity、Shader、AssetBundle、UGUI、性能优化和项目工程化。</span>
+    </a>
+
+    <a class="home-section-card" href="{{ site.baseurl }}/algorithm/">
+      <span class="home-section-name">Algorithm</span>
+      <span class="home-section-count">{{ algorithm_count }} posts</span>
+      <span class="home-section-desc">LeetCode、数据结构、字符串、链表、排序和寻路。</span>
+    </a>
+
+    <a class="home-section-card" href="{{ site.baseurl }}/archives/">
+      <span class="home-section-name">Posts Archives</span>
+      <span class="home-section-count">{{ site.posts | size }} posts</span>
+      <span class="home-section-desc">所有已发布文章的完整时间线。</span>
+    </a>
+  </section>
+
+  <section class="home-latest">
+    <div class="home-section-heading">
+      <h2>Latest Notes</h2>
+      <a href="{{ site.baseurl }}/archives/">View all</a>
+    </div>
+
+    <div class="home-post-list">
+      {% for post in site.posts limit:5 %}
+        <article class="home-post-item">
+          <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <div class="home-post-meta">
+            <span>{{ post.date | date_to_string }}</span>
+            {% if post.section %}
+              <span>{{ post.section | replace: "-", " " }}</span>
+            {% endif %}
+          </div>
+          <p>{{ post.excerpt | strip_html | truncate: 180 }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</main>

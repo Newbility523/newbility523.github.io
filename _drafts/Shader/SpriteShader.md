@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Sprite shader 出现图集错乱的情况"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # Sprite shader 出现图集错乱的情况
 
 在项目后期，需要在 3D 空间下显示卡片，我们第一次使用了 Sprite Renderer 组件，Editor 下表现良好。但是因为 XLua 没添加适配代码，打包的 apk 和 ipa 都没法调用里面的接口。所以只能用改用 plane，并加上 Sprite-Default Shader 替代，效果一模一样，只是改素材的方法从 sprite 改成了 mainTexture。

@@ -1,3 +1,11 @@
+---
+layout: post
+title: "先查看本地 Android SDK 路径"
+section: dev-tools
+topic: linux
+tags: ["dev-tools", "linux"]
+---
+
 先查看本地 Android SDK 路径
 
 ![image-20221018142809106](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/PicBedimage-20221018142809106.png)

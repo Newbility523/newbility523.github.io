@@ -1,4 +1,10 @@
-
+---
+layout: post
+title: "Mac 运行 G01 流程记录"
+section: dev-tools
+topic: macos
+tags: ["dev-tools", "macos"]
+---
 
 # Mac 运行 G01 流程记录
 

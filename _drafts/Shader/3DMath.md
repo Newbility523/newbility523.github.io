@@ -1,3 +1,11 @@
+---
+layout: post
+title: "3D 数学"
+section: game-dev
+topic: math
+tags: ["game-dev", "rendering", "math"]
+---
+
 # 3D 数学
 
 ## 平面直线的表达方式

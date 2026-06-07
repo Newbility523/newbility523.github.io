@@ -1,3 +1,11 @@
+---
+layout: post
+title: "VSCode 插件开发"
+section: dev-tools
+topic: vscode
+tags: ["dev-tools", "vscode"]
+---
+
 # VSCode 插件开发
 
 踩坑实录

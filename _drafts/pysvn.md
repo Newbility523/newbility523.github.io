@@ -1,3 +1,11 @@
+---
+layout: post
+title: "PythonSVN 使用说明"
+section: dev-tools
+topic: network
+tags: ["dev-tools", "network"]
+---
+
 # PythonSVN 使用说明
 
 为了统一多平台的打包体验，以及提高打包脚本的可维护性和复用，旧项目使用的 

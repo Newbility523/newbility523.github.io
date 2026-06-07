@@ -1,3 +1,11 @@
+---
+layout: post
+title: "优化记录"
+section: game-dev
+topic: unity
+tags: ["game-dev", "unity"]
+---
+
 优化记录
 
 监听移除操作，优化前，Lua 调用中，纯 lua 内耗时耗时高达 70%。

@@ -1,3 +1,11 @@
+---
+layout: post
+title: "ShaderLab 涉及到的矩阵"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # ShaderLab 涉及到的矩阵
 
 系统的归纳下模型从到屏幕经历的一系列坐标转换

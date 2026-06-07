@@ -1,3 +1,11 @@
+---
+layout: post
+title: "OnPostprocessAllAssets"
+section: game-dev
+topic: unity
+tags: ["game-dev", "unity"]
+---
+
 ```
 AssetPostprocessor
 ```

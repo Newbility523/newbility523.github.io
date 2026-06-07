@@ -1,3 +1,11 @@
+---
+layout: post
+title: "列表的选中，使用什么作为记录，index 还是 cell 实体？"
+section: game-dev
+topic: unity
+tags: ["game-dev", "unity"]
+---
+
 列表的选中，使用什么作为记录，index 还是 cell 实体？
 
 多级列表共用一层选中问题

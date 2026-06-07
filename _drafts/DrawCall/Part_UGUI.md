@@ -1,3 +1,11 @@
+---
+layout: post
+title: "DrawCall控制"
+section: game-dev
+topic: rendering
+tags: ["game-dev", "rendering"]
+---
+
 # DrawCall控制
 
 * DrawCall 说明 / 查看

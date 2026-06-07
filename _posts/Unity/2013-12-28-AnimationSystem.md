@@ -2,7 +2,9 @@
 layout: post
 title: 动画系统
 excerpt: 动画系统.
-tags: 测试标签
+tags: ["game-dev", "unity", "测试标签"]
+section: game-dev
+topic: unity
 ---
 
 参考

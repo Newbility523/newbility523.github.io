@@ -1,3 +1,11 @@
+---
+layout: post
+title: "光照模型"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # 光照模型
 
 ## 漫反射

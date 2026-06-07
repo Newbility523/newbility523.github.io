@@ -1,0 +1,31 @@
+---
+layout: default
+title: Game Dev
+permalink: /game-dev/
+---
+
+{% assign current_month = "" %}
+{% assign game_dev_count = 0 %}
+
+<section class="archive-page">
+  <h1 class="page-title">Game Dev</h1>
+
+{% for post in site.posts %}
+  {% if post.section == "game-dev" %}
+    {% capture month %}{{ post.date | date: '%m%Y' }}{% endcapture %}
+    {% if month != current_month %}
+      {% if game_dev_count != 0 %}</ul>{% endif %}
+      <h5>{{ post.date | date: '%B %Y' }}</h5><ul>
+      {% assign current_month = month %}
+    {% endif %}
+    {% assign game_dev_count = game_dev_count | plus: 1 %}
+  <li><span class="time">{{ post.date | date: "%d/%m/%Y" }}</span>		<a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endif %}
+{% endfor %}
+
+{% if game_dev_count != 0 %}
+</ul>
+{% else %}
+<p>No Game Dev posts yet.</p>
+{% endif %}
+</section>

@@ -1,3 +1,11 @@
+---
+layout: post
+title: "添加节点"
+section: dev-tools
+topic: ci
+tags: ["dev-tools", "ci"]
+---
+
 确保管理员号有密码，空密码是不允许的
 
 ![image-20220222120310440](https://cdn.jsdelivr.net/gh/Newbility523/PicBed/imgs/image-20220222120310440.png)

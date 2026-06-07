@@ -1,3 +1,10 @@
+---
+layout: post
+title: "透明物体的渲染流程"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
 
 # 透明物体的渲染流程
 

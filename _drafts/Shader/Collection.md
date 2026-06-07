@@ -1,3 +1,11 @@
+---
+layout: post
+title: "收藏夹"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # 收藏夹
 
 [地图扫描](https://zhuanlan.zhihu.com/p/143788955)

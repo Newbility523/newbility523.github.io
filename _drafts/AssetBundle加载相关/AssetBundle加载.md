@@ -1,3 +1,11 @@
+---
+layout: post
+title: "AssetDatabase.GetAssetPathsFromAssetBundle(\"Bundle名称\");"
+section: game-dev
+topic: assetbundle
+tags: ["game-dev", "unity", "assetbundle"]
+---
+
 # AssetDatabase.GetAssetPathsFromAssetBundle("Bundle名称");
 只能在#if_UNITY_EDITOR环境下使用。因为这个时候的Bundle只是普通的文件，并没有被打包。得到的是多个**相同Bundle名称**的文件路径。(所以Bundle名称不重复很重要哦)
 

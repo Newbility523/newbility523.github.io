@@ -1,3 +1,11 @@
+---
+layout: post
+title: "测试启动"
+section: misc
+topic: inbox
+tags: ["misc", "inbox"]
+---
+
 https://pysvn.sourceforge.io/Docs/pysvn_prog_ref.html
 
 远程开发设置

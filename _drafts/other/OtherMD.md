@@ -1,3 +1,10 @@
+---
+layout: post
+title: "head"
+section: misc
+topic: inbox
+tags: ["misc", "inbox"]
+---
 
 # head
 

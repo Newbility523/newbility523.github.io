@@ -1,3 +1,11 @@
+---
+layout: post
+title: "查看日志"
+section: dev-tools
+topic: git
+tags: ["dev-tools", "git"]
+---
+
 # 查看日志
 
 ## git log --pretty=oneline

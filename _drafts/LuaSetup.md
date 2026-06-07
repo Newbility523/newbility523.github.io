@@ -1,6 +1,10 @@
-
-
-
+---
+layout: post
+title: "Lua 环境搭建"
+section: programming
+topic: lua
+tags: ["programming", "lua"]
+---
 
 # Lua 环境搭建
 

@@ -1,8 +1,11 @@
 ---
-tag
+tag: interview
+layout: post
+title: "面试 方法"
+section: career
+topic: interview
+tags: ["career", "interview"]
 ---
-
-
 
 ## 面试 方法
 
@@ -187,7 +190,6 @@ tag
 对加班的接受度
 
 离职原因
-
 
 
 

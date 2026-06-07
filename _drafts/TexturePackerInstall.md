@@ -1,4 +1,10 @@
-
+---
+layout: post
+title: "Texture Packer"
+section: game-dev
+topic: rendering
+tags: ["game-dev", "unity", "rendering"]
+---
 
 ## Texture Packer 
 

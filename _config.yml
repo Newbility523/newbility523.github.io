@@ -17,6 +17,7 @@ author:
   url:            https://github.com/Newbility523
 
 paginate:         5
+paginate_path:    /recent-notes/page:num/
 
 # Custom vars
 version:          2.1.0

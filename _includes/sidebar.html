@@ -21,23 +21,41 @@
         `layout: page` in the front-matter. See readme for usage.
       {% endcomment %}
 
+      {% if page.url == "/recent-notes/" or page.url contains "/recent-notes/page" %}
+        <a class="sidebar-nav-item active" aria-current="page">Recent Notes</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/recent-notes/">Recent Notes</a>
+      {% endif %}
+
+      {% if page.url == "/game-dev/" %}
+        <a class="sidebar-nav-item active" aria-current="page">Game Dev</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/game-dev/">Game Dev</a>
+      {% endif %}
+
+      {% if page.url == "/algorithm/" %}
+        <a class="sidebar-nav-item active" aria-current="page">Algorithm</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/algorithm/">Algorithm</a>
+      {% endif %}
+
       {% if page.url == "/archives/" %}
         <a class="sidebar-nav-item active" aria-current="page">Posts Archives</a>
       {% else %}
         <a class="sidebar-nav-item" href="{{ site.baseurl }}/archives/">Posts Archives</a>
       {% endif %}
-      {% assign pages_list = site.pages %}
-      {% for node in pages_list %}
-        {% if node.title != null %}
-          {% if node.layout == "page" %}
-            {% if page.url == node.url %}
-              <a class="sidebar-nav-item active" aria-current="page">{{ node.title }}</a>
-            {% else %}
-              <a class="sidebar-nav-item" href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
+
+      {% if page.url == "/tag/" %}
+        <a class="sidebar-nav-item active" aria-current="page">Tags</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/tag/">Tags</a>
+      {% endif %}
+
+      {% if page.url == "/about/" %}
+        <a class="sidebar-nav-item active" aria-current="page">About Me</a>
+      {% else %}
+        <a class="sidebar-nav-item" href="{{ site.baseurl }}/about/">About Me</a>
+      {% endif %}
 
 
       <!-- <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a> -->
