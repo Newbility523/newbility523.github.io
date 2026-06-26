@@ -187,6 +187,30 @@ public static List<List<string>> BlackList = new List<List<string>>()  {
 
 
 
+### hybridclr 报错
+
+这是因为你Installer中安装后切换了Unity项目的版本，导致Build Tool不匹配导致。解决办法为在`HybridCLR/Installer...`中重新安装一次即可。
+
+```
+Internal build system error. BuildProgram exited with code 2.
+System.IO.FileNotFoundException: Could not load file or assembly 'Unity.IL2CPP.Bee.BuildLogic.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+
+File name: 'Unity.IL2CPP.Bee.BuildLogic.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
+   at AndroidPlayerBuildProgram.AndroidPlayerBuildProgram.MakePlatformBuildLogic(EnvironmentData data)
+   at PlayerBuildProgramLibrary.PlayerBuildProgramBase.SetupIl2Cpp(NPath gameAssemblyOutput) in /Users/bokken/build/output/unity/unity/Editor/IncrementalBuildPipeline/PlayerBuildProgramLibrary/PlayerBuildProgramBase.cs:line 311
+   at AndroidPlayerBuildProgram.AndroidPlayerBuildProgram.SetupIl2CppIdeCommandLine(Architecture[] architectures, Dictionary`2& arguments, BuildConfiguration& configuration)
+   at AndroidPlayerBuildProgram.AndroidPlayerBuildProgram.SetupIL2CPPForExportProject()
+   at AndroidPlayerBuildProgram.AndroidPlayerBuildProgram.SetupPlayerBuild()
+   at PlayerBuildProgramLibrary.PlayerBuildProgramBase.RunBuildProgram() in /Users/bokken/build/output/unity/unity/Editor/IncrementalBuildPipeline/PlayerBuildProgramLibrary/PlayerBuildProgramBase.cs:line 165
+   at PlayerBuildProgramTypeWrapper.Run(String[] args)
+   at Program.Main(String[] args)
+UnityEngine.GUIUtility:ProcessEvent (int,intptr,bool&) (at /Users/bokken/build/output/unity/unity/Modules/IMGUI/GUIUtility.cs:189)
+```
+
+
+
+
+
 ### Dll 生成失败
 
 使用 Unity 工具 `打包/IOS/Build IOS Dll` 会跑 HybirdCLR 的流程并且把更新的 dll 补充元数据生成到 production 目录下，如果没有提前创建 `xxx/Client/production/resources/ios/dll` 目录会报错。
@@ -310,3 +334,103 @@ chmod -R g+x /Applications/Unity/2020.3.35f1/PlaybackEngines/AndroidPlayer
 2. Rename `d8.exe` to `dx.exe`
 3. Go inside `lib` folder
 4. Rename `d8.jar` to `dx.jar`
+
+
+
+IOS 证书问题
+
+![image-20250602224756772](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250602224756772.png)
+
+Unity-iPhone has conflicting provisioning settings.
+
+Unity-iPhone is automatically signed, but provisioning profile becfef85-e2d8-4368-9f19-21220891e987 has been manually specified. Set the provisioning profile value to "Automatic" in the build settings editor, or switch to manual signing in the Signing & Capabilities editor.
+
+
+
+![image-20250602225703183](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250602225703183.png)
+
+清空上面的设置即可
+
+
+
+### 打包出现 Undefined symbols： RuntimeApi_LoadMetadataForAOTAssembly 或 hybridclrApi_LoadMetadataForAOTAssembly[](https://hybridclr.doc.code-philosophy.com/docs/help/commonerrors#打包出现-undefined-symbols-runtimeapi_loadmetadataforaotassembly-或-hybridclrapi_loadmetadataforaotassembly)
+
+根本原因是因为你使用的是原始libil2cpp代码，有几个情形会导致这个结果：
+
+- Scripting Backend 错误选择了 Mono
+- 开启了`全局安装`选项，但没有正确替换Editor安装目录的libil2cpp
+- com.code-philosophy.hybridclr的版本低于v3.1.0，同时没有替换xcode工程的libil2cpp.a文件。请根据 [build iOS libil2cpp.a](https://hybridclr.doc.code-philosophy.com/docs/basic/buildpipeline) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
+
+
+
+# unsupported option ‘-mno-thumb‘ for target ‘arm64-apple-ios11.0
+
+![image-20250603010521264](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250603010521264.png)
+
+
+
+华佗升级
+
+直接在package manager 通过giturl安装最新华佗，同时在窗口中remove 旧华佗后打包报错。
+
+项目后期会引用华佗的LZ4压缩库，所以移除旧华佗会删掉 LZ4 库。
+
+调整做法把新的华佗整个目录移到 package 目录中，并调整 LZ4 库的生效范围如下图
+
+![image-20250604002654429](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250604002654429.png)
+
+
+
+## 华佗版本
+
+测试过没问题版本
+
+https://gitee.com/focus-creative-games/hybridclr_unity.git#v8.1.0
+
+Span更高的可能需要额外处理代码
+
+不同版本华佗会临时资源一致，但目录命名不一致，如果有缓存就会有报错。把旧的目录删了即可。
+
+
+
+## 支持Finder/爱思查看文件（可选）
+
+![image-20250701161233113](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250701161233113.png)
+
+
+
+语音支持
+
+新增的游密语音sdk，需要补充配置
+
+https://www.youme.im/doc/IMGuideCocosC++.php
+
+![image-20250722115045204](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250722115045204.png)
+
+把红框这批加进![image-20250722115144494](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250722115144494.png)
+
+注意，可能部分已经存在，不要重复添加
+
+只要这一个
+
+![image-20250912181954826](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250912181954826.png)
+
+这两个自带，不用加
+
+![image-20250912182020317](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250912182020317.png)
+
+可能会出现漏了 webkit的情况，也用加号加进来
+
+打点
+
+改成yes
+
+![image-20250912181309714](https://newbility523-1252413540.cos.ap-guangzhou.myqcloud.com/undefinedimage-20250912181309714.png)
+
+
+
+打包练习
+
+完全重新打包，并打首包
+
+华佗升级到v5.1

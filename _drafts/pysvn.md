@@ -208,7 +208,7 @@ resolve_conflict_prefer(accept=ACCEPT_THEIRS_FULL, files=None)
 | accept                 | 说明                                 |
 | ---------------------- | ------------------------------------ |
 | ACCEPT_BASE            | 对冲突部分使用当前工作区版本库的内容 |
-| ACCEPT_WORKING         | 对冲突部分当前工作区版本库的内容     |
+| ACCEPT_WORKING         | 对冲突部分当前工作区库的内容         |
 | ACCEPT_MINE_CONFLICT   | 对于**冲突部分**，使用自身的修改     |
 | ACCEPT_THEIRS_CONFLICT | 对于**冲突部分**，使用他人的修改     |
 | ACCEPT_MINE_FULL       | 对于冲突，完全以我为准               |

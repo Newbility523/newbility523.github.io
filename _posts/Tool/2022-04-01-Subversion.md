@@ -120,6 +120,23 @@ svn revert file.txt
 
 ## 检出
 
+### （初始）选择检出
+
+已有仓库 `svn://127.0.0.1/MainVersion` 需要保持完成项目路径的情况下，只检出 `svn://127.0.0.1/MainVersion/Client/project/Assets/TextAssets/Config`
+
+``` bash
+# checkout 空目录顶节点
+svn checkout svn://127.0.0.1/MainVersion myproject --depth empty
+# 继续 checkout 需要的子目录
+svn update Client/project/Assets/TextAssets/Config --set-depth empty --parents
+# 将子目录的子项全部 checkout
+svn update Client/project/Assets/TextAssets/Config --set-depth infinity
+```
+
+
+
+### （补充）选择检出/稀疏检出
+
 项目太大，在已有目录下只额外检出特定的目录
 
 ```bash
@@ -270,6 +287,39 @@ svn diff -r 282731:291467 --summarize | awk -F'/' '{print $NF}' | awk -F'.' 'NF>
 
 
 
+批量处理冲突
+
+比较通用的做法
+
+```
+# 查看冲突
+svn st | grep '^C' > revertfilelist.txt
+# 然后通过 vim 编辑需要进行冲突处理的目录后
+xargs svn revert -R < revertfilelist.txt
+```
+
+`revert -R` 是用于处理树冲突
+
+也可以改成 `resolve --accept theirs-full . -R ` 用于处理常规的冲突。
+
+
+
+## 切分支后常规还原操作
+
+svn cleanup --remove-unversioned 对整个大工程处理
+
+批量处理冲突
+
+svn revert  ./HybridCLRData -R
+
+删除 PackageCache 下的华佗
+
+如果当前已经是从高版本的 HybridCLRData 的更新的，那switch后删除掉`Packages/com.focus-creative-games.hybridclr_unity@fbeeb3d959`即可。
+
+
+
+
+
 
 
 ## SVN 疑难杂症处理汇总
@@ -361,6 +411,12 @@ Linux 使用 SVN 的问题
 如果后续种种原因对 repo 输入密码，会覆盖掉原本改动的 `svn.simple` 
 
 如果调整的配置文件乱了，可以直接删掉 `~/.subverion` ，重新执行 svn 命令就会重新生成
+
+
+
+Svnserve 启动模式
+
+svnserve -i -r ./G01 --foreground mac上保持前台，以防止断连
 
 
 
