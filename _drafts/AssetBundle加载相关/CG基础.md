@@ -1,3 +1,10 @@
+---
+layout: post
+title: "CG在Shader之中的使用,需要包含在CGPROGRAM跟ENDCG之间."
+section: game-dev
+topic: rendering
+tags: ["game-dev", "unity", "rendering"]
+---
 
 CG在Shader之中的使用,需要包含在CGPROGRAM跟ENDCG之间.
 ```C#

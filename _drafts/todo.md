@@ -1,3 +1,11 @@
+---
+layout: post
+title: "python"
+section: misc
+topic: inbox
+tags: ["misc", "inbox"]
+---
+
 python 
 
 typer

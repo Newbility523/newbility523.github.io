@@ -1,3 +1,10 @@
+---
+layout: post
+title: "非真实渲染 Non-Photorealistic Rendering"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
 
 # 非真实渲染 Non-Photorealistic Rendering
 

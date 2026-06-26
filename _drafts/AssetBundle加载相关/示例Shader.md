@@ -1,3 +1,11 @@
+---
+layout: post
+title: "注意项"
+section: game-dev
+topic: rendering
+tags: ["game-dev", "unity", "rendering"]
+---
+
 ```C#
 Shader "Custom/SurfaceShaderTest" {
 	Properties {

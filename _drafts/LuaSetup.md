@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Lua 环境搭建"
+section: programming
+topic: lua
+tags: ["programming", "lua"]
+---
+
 # Lua 环境搭建
 
 由于需要对输出的 LuaJIT 脚本做定时测试，将遍历 Lua 源码配置表和 LuaJIT 配置表逐行对比，确保相同。于是就需要在 Jenkins 机里重新配置 Lua 环境，包括 **Lua5.1，LuaJIT 2.1，Luarocks**。
@@ -148,6 +156,5 @@ make
 3. 新增 `LuaJIT/lua` 目录
 4. 把编译目录下的 `src/jit` 下的整个目录，复制到 `LuaJIT/lua` 下
 5. 把整个 `LuaJIT` 移动到 C 盘新增的 `Lua` 下，并把 `LuaJIT` 加入到系统 Path 中
-
 
 

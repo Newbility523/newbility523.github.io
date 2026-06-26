@@ -1,3 +1,11 @@
+---
+layout: post
+title: "import SwiftUI"
+section: programming
+topic: ios
+tags: ["programming", "ios"]
+---
+
 ```swift
 import SwiftUI
 

@@ -1,0 +1,29 @@
+{% if site.giscus.enabled and page.comments != false %}
+  <section class="comments">
+    <div class="comments-inner">
+      <h2>Comments</h2>
+
+      {% if site.giscus.repo and site.giscus.repo_id and site.giscus.category and site.giscus.category_id %}
+        <div class="giscus"></div>
+        <script src="https://giscus.app/client.js"
+                data-repo="{{ site.giscus.repo }}"
+                data-repo-id="{{ site.giscus.repo_id }}"
+                data-category="{{ site.giscus.category }}"
+                data-category-id="{{ site.giscus.category_id }}"
+                data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+                data-strict="{{ site.giscus.strict | default: '1' }}"
+                data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+                data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
+                data-input-position="{{ site.giscus.input_position | default: 'top' }}"
+                data-theme="{{ site.giscus.theme | default: 'light' }}"
+                data-lang="{{ site.giscus.lang | default: 'zh-CN' }}"
+                crossorigin="anonymous"
+                loading="lazy"
+                async>
+        </script>
+      {% else %}
+        <p class="comments-placeholder">Giscus comments will appear here after GitHub Discussions is configured.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

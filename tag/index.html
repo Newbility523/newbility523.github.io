@@ -1,0 +1,24 @@
+---
+layout: default
+title: Tags
+permalink: /tag/
+---
+
+{% assign sorted_tags = site.tags | sort %}
+
+<section class="archive-page tag-index-page">
+  <h1 class="page-title">Tags</h1>
+
+  <ul class="tag-index-list">
+  {% for item in sorted_tags %}
+    {% assign tag_name = item[0] %}
+    {% assign posts = item[1] %}
+    <li>
+      <a href="{{ site.baseurl }}/tag/{{ tag_name | replace: ' ', '_' }}/">
+        <span class="tag-index-name">{{ tag_name }}</span>
+        <span class="tag-index-count">{{ posts | size }}</span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>

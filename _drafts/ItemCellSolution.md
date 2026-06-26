@@ -1,4 +1,10 @@
-
+---
+layout: post
+title: "动态组 内存少 setParent 多"
+section: game-dev
+topic: ui
+tags: ["game-dev", "unity", "ui"]
+---
 
 动态组 内存少 setParent 多
 

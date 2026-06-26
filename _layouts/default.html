@@ -3,11 +3,13 @@
 
   {% include head.html %}
 
-  <body class="theme-base-0f">
+  <body class="theme-base-0f{% if page.layout == 'post' %} layout-post{% endif %}">
 
     {% include sidebar.html %}
 
-    <div class="content container">
+    {% include site-search.html %}
+
+    <div class="content container{% if page.layout == 'post' %} post-container{% endif %}">
       {{ content }}
     </div>
 

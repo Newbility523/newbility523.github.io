@@ -1,0 +1,21 @@
+{% assign portable_body = include.content %}
+{% assign portable_title = include.title | strip_html | strip %}
+{% assign portable_first_h1 = portable_body | strip | split: '</h1>' | first %}
+{% if portable_first_h1 contains '<h1' %}
+  {% capture portable_first_h1_markup %}{{ portable_first_h1 }}</h1>{% endcapture %}
+  {% assign portable_first_h1_text = portable_first_h1_markup | strip_html | strip %}
+  {% if portable_first_h1_text == portable_title %}
+    {% assign portable_body = portable_body | remove_first: portable_first_h1_markup %}
+  {% endif %}
+{% endif %}
+
+{% assign portable_first_p = portable_body | strip | split: '</p>' | first %}
+{% if portable_first_p contains '<p' %}
+  {% capture portable_first_p_markup %}{{ portable_first_p }}</p>{% endcapture %}
+  {% assign portable_first_p_text = portable_first_p_markup | strip_html | strip %}
+  {% if portable_first_p_text == portable_title %}
+    {% assign portable_body = portable_body | remove_first: portable_first_p_markup %}
+  {% endif %}
+{% endif %}
+
+{{ portable_body }}

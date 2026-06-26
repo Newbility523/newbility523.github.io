@@ -1,3 +1,11 @@
+---
+layout: post
+title: "寻路到某堵墙面前"
+section: game-dev
+topic: unity
+tags: ["game-dev", "unity"]
+---
+
 寻路到某堵墙面前
 
 Unity的寻路跳跃点怎么做

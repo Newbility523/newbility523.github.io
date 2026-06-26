@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Draw Call"
+section: game-dev
+topic: assetbundle
+tags: ["game-dev", "unity", "assetbundle"]
+---
+
 # Draw Call
 * 概念:Draw Call是一条指令.Cpu向Gpu发送的一段指令,去渲染一个网格(Mesh).这条指令只指定一个网格(Mesh)是否被渲染,是否绘制任何材质(Material).
 

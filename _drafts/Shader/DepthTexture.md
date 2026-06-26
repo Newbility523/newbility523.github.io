@@ -1,3 +1,11 @@
+---
+layout: post
+title: "深度纹理 Depth Texture"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # 深度纹理 Depth Texture
 
 深度纹理是指将深度信息缓存在一张纹理贴图中。

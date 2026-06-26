@@ -1,0 +1,27 @@
+{% assign archive_current_month = "" %}
+{% assign archive_count = 0 %}
+{% assign archive_section = include.section | default: "" %}
+{% assign archive_title = include.title | default: page.title %}
+
+<section class="archive-page">
+  <h1 class="page-title">{{ archive_title }}</h1>
+
+{% for post in site.posts %}
+  {% if archive_section == "" or post.section == archive_section %}
+    {% capture archive_month %}{{ post.date | date: '%m%Y' }}{% endcapture %}
+    {% if archive_month != archive_current_month %}
+      {% if archive_count != 0 %}</ul>{% endif %}
+      <h5>{{ post.date | date: '%B %Y' }}</h5><ul class="archive-list">
+      {% assign archive_current_month = archive_month %}
+    {% endif %}
+    {% assign archive_count = archive_count | plus: 1 %}
+  <li><span class="time" aria-label="{{ post.date | date: '%b %d, %Y' }}">{{ post.date | date: "%d" }}</span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+  {% endif %}
+{% endfor %}
+
+{% if archive_count != 0 %}
+</ul>
+{% elsif include.empty_message %}
+<p>{{ include.empty_message }}</p>
+{% endif %}
+</section>

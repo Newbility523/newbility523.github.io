@@ -1,3 +1,11 @@
+---
+layout: post
+title: "服务端创建 socket 后，当监听到有新的连接，是否一定要 “accept” 使用新的 FD 进行连接，能不能不创建 FD，用原有的 socket。"
+section: dev-tools
+topic: network
+tags: ["dev-tools", "network"]
+---
+
 服务端创建 socket 后，当监听到有新的连接，是否一定要 “accept” 使用新的 FD 进行连接，能不能不创建 FD，用原有的 socket。
 
 

@@ -1,3 +1,11 @@
+---
+layout: post
+title: "VS code + CMake + WSL"
+section: programming
+topic: cpp
+tags: ["programming", "cpp"]
+---
+
 # VS code + CMake + WSL
 
 使用 VS code 打造一个轻量级的且规范的 C++ 环境

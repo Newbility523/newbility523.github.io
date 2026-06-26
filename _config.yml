@@ -17,9 +17,10 @@ author:
   url:            https://github.com/Newbility523
 
 paginate:         5
+paginate_path:    /recent-notes/page:num/
 
 # Custom vars
-version:          2.1.0
+version:          2.1.23
 
 github:
   repo:           https://github.com/poole/hyde
@@ -35,3 +36,17 @@ include:
 
 plugins:
   - jekyll-paginate
+
+giscus:
+  enabled: true
+  repo: Newbility523/newbility523.github.io
+  repo_id: R_kgDOG3tznA
+  category: General
+  category_id: DIC_kwDOG3tznM4C-oRr
+  mapping: pathname
+  strict: 1
+  reactions_enabled: 1
+  emit_metadata: 0
+  input_position: bottom
+  theme: preferred_color_scheme
+  lang: en

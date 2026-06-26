@@ -1,3 +1,11 @@
+---
+layout: post
+title: "CMake配置"
+section: dev-tools
+topic: build-tools
+tags: ["dev-tools", "build-tools"]
+---
+
 # CMake配置
 
 CMake 作用是可以通过编写 CMakeLists.txt 的方式组织项目代码的编译流程，让项目可以在不同的平台编译。

@@ -1,1 +1,9 @@
+---
+layout: post
+title: "本项目将后续更新将会调整到 newbility523.com 上"
+section: misc
+topic: inbox
+tags: ["misc", "inbox"]
+---
+
 本项目将后续更新将会调整到 newbility523.com 上

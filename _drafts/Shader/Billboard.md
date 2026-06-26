@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Billboard 广告牌"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # Billboard 广告牌
 
 广告牌效果实际上是让物体的渲染针对相机视角做出相应的调整，类似 UI。

@@ -1,3 +1,11 @@
+---
+layout: post
+title: "pattern = rf\"{name}(.cs)? (.+)\""
+section: dev-tools
+topic: linux
+tags: ["dev-tools", "linux"]
+---
+
 ```
 pattern = rf"{name}(.cs)? (.+)"
 ```

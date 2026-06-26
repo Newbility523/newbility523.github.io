@@ -1,3 +1,11 @@
+---
+layout: post
+title: "噪点纹理"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # 噪点纹理
 
 当 shader 的效果中需要一些随机值时，实现生产随机值会比运行时生成效率更高，也更可控。我们会把这些随机值存进图片中，称为噪点图。

@@ -1,3 +1,11 @@
+---
+layout: post
+title: "std::cin 注意事项"
+section: programming
+topic: cpp
+tags: ["programming", "cpp"]
+---
+
 `vector<string> paths` 不是引用类型？为什么作为参赛传递插值无效
 
 重载字符串 + , 不然太麻烦了

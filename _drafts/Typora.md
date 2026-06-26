@@ -1,3 +1,11 @@
+---
+layout: post
+title: "npm install picgo -g"
+section: dev-tools
+topic: typora
+tags: ["dev-tools", "typora"]
+---
+
 [快捷键](https://support.typora.io/Shortcut-Keys/)
 
 图床设置

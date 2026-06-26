@@ -1,3 +1,11 @@
+---
+layout: post
+title: "系统参数"
+section: dev-tools
+topic: vscode
+tags: ["dev-tools", "vscode"]
+---
+
 # 系统参数
 
 https://code.visualstudio.com/docs/editor/variables-reference

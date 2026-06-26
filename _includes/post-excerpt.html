@@ -1,0 +1,29 @@
+{% assign excerpt_post = include.post %}
+{% assign excerpt_limit = include.limit | default: 180 %}
+{% assign excerpt_title = excerpt_post.title | strip_html | strip %}
+{% assign excerpt_summary = excerpt_post.summary | default: "" | strip %}
+
+{% if excerpt_summary != "" %}
+  {% assign excerpt_text = excerpt_summary | strip_html | strip %}
+{% else %}
+  {% assign excerpt_text = excerpt_post.excerpt | strip_html | strip %}
+  {% if excerpt_text == "" or excerpt_text == excerpt_title %}
+    {% capture excerpt_body %}{% include post-body.html content=excerpt_post.content title=excerpt_post.title %}{% endcapture %}
+    {% assign excerpt_text = "" %}
+    {% assign excerpt_paragraphs = excerpt_body | split: '<p>' %}
+    {% for excerpt_paragraph in excerpt_paragraphs offset:1 %}
+      {% assign excerpt_candidate = excerpt_paragraph | split: '</p>' | first | strip_html | strip %}
+      {% if excerpt_candidate != "" and excerpt_candidate != excerpt_title %}
+        {% assign excerpt_text = excerpt_candidate %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if excerpt_text == "" %}
+      {% assign excerpt_text = excerpt_body | strip_html | strip %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% if excerpt_text != "" and excerpt_text != excerpt_title %}
+  <p>{{ excerpt_text | truncate: excerpt_limit }}</p>
+{% endif %}

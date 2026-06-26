@@ -1,3 +1,11 @@
+---
+layout: post
+title: "在 Android Studio 中，Java 版本通常在以下几个地方设置："
+section: game-dev
+topic: build-pipeline
+tags: ["game-dev", "unity", "build-pipeline"]
+---
+
 在 Android Studio 中，Java 版本通常在以下几个地方设置：
 
 1. `JAVA_HOME` 环境变量：你可以在命令行中运行 `echo $JAVA_HOME`（在 Unix 或 Linux 系统中）或 `echo %JAVA_HOME%`（在 Windows 系统中）来查看 `JAVA_HOME` 环境变量的值。

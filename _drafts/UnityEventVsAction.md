@@ -1,3 +1,11 @@
+---
+layout: post
+title: "UnityEvent Unity内置事件类型"
+section: game-dev
+topic: unity
+tags: ["game-dev", "unity"]
+---
+
 UnityEvent Unity内置事件类型
 
 System.Event C# 底层事件类型

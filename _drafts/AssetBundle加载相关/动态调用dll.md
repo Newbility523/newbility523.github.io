@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Waring"
+section: game-dev
+topic: assetbundle
+tags: ["game-dev", "unity", "assetbundle"]
+---
+
 ```C#
 using System;
 using System.Collections.Generic;

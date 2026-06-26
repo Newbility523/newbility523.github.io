@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Shader \"Custom/Diffuse Texture\""
+section: game-dev
+topic: rendering
+tags: ["game-dev", "unity", "rendering"]
+---
+
 ``` C#
 Shader "Custom/Diffuse Texture" {
 	Properties {

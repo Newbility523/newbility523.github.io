@@ -1,3 +1,11 @@
+---
+layout: post
+title: "布局流程"
+section: game-dev
+topic: ui
+tags: ["game-dev", "unity", "ui"]
+---
+
 Image，Text 自带 preferred size
 
 Image 需要有图片时以 Sprite size 为准，否则为 0

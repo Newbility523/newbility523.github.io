@@ -14,11 +14,24 @@
     {% endif %}
   </title>
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/poole.css">
-  <link rel="stylesheet" href="/public/css/syntax.css">
-  <link rel="stylesheet" href="/public/css/hyde.css">
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="/public/css/poole.css?v={{ site.version }}">
+  <link rel="stylesheet" href="/public/css/syntax.css?v={{ site.version }}">
+  <link rel="stylesheet" href="/public/css/hyde.css?v={{ site.version }}">
+  {% if page.layout == "post" %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
+  <style>
+    .gslide-description {
+      display: none !important;
+    }
+  </style>
+  {% endif %}
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
@@ -33,4 +46,10 @@
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  {% if page.layout == "post" %}
+  <script defer src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
+  <script defer src="{{ site.baseurl }}/public/js/post-images.js"></script>
+  {% endif %}
+  <script defer src="{{ site.baseurl }}/public/js/site-search.js?v={{ site.version }}"></script>
 </head>

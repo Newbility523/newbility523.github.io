@@ -1,3 +1,11 @@
+---
+layout: post
+title: "画面颜色调整"
+section: game-dev
+topic: shader
+tags: ["game-dev", "rendering", "shader"]
+---
+
 # 画面颜色调整
 
 * 亮度、曝光
